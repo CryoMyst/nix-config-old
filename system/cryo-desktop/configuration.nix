@@ -148,7 +148,7 @@
 
   programs.dconf.enable = true;
   security.polkit.enable = true;
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   fonts.fonts = with pkgs; [
     corefonts
