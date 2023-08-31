@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 42;
@@ -102,11 +102,14 @@
       blender
       gimp
       freecad
+      cura
       lutris
       wineWowPackages.staging
       winetricks
       jetbrains-toolbox
       dotnet-sdk_8
+      noisetorch
+      obsidian
     ];
   };
 
@@ -120,6 +123,10 @@
   programs.hyprland = {
     enable = true;
     package = hyprland.packages.${pkgs.system}.hyprland;
+    xwayland = {
+      hidpi = true;
+      enable = true;
+    };
   };
 
   virtualisation.docker.enable = true;
@@ -149,6 +156,11 @@
   programs.dconf.enable = true;
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
 
   fonts.fonts = with pkgs; [
     corefonts

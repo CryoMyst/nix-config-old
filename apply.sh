@@ -9,6 +9,16 @@ echo "Switching to script directory..."
 # Push the current directory onto the stack and change to the directory of this script
 pushd "$(dirname "$0")" > /dev/null
 
+# If --update is given run nix flake update
+# Check if --update is given as a parameter
+for arg in "$@"; do
+    if [ "$arg" = "--update" ]; then
+        echo "Updating flake..."
+        nix flake update
+        break
+    fi
+done
+
 # Log the nixos-rebuild build action
 echo "Checking configuration with nixos-rebuild build for hostname: ${HOSTNAME}..."
 
