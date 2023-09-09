@@ -15,22 +15,27 @@ in {
   };
 
   home-manager.backupFileExtension = "backup";
+  home-manager = {
+    users = {
+      cryomyst = {
+        
+        home = {
+          stateVersion = "23.05";
+          packages = [
+          ];
+        };
 
-  home-manager.users.cryomyst = {
-    home.stateVersion = "23.05";
-
-    home.packages = [
-    ];
-    
-    gtk = {
-      enable = true;
-      iconTheme = {
-        name = "Adwaita-dark";
-        package = pkgs.gnome.adwaita-icon-theme;
-      };
-      theme = {
-        name = "Adwaita-dark";
-        package = pkgs.gnome.adwaita-icon-theme;
+        gtk = {
+          enable = true;
+          iconTheme = {
+            name = "Adwaita-dark";
+            package = pkgs.gnome.adwaita-icon-theme;
+          };
+          theme = {
+            name = "Adwaita-dark";
+            package = pkgs.gnome.adwaita-icon-theme;
+          };
+        };
       };
     };
   };
