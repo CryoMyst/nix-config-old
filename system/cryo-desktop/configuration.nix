@@ -1,20 +1,21 @@
-{ config, pkgs, hyprland, ... }:
+{ config, pkgs, hyprland, rust-overlay, ... }:
 
 {
+  nixpkgs.overlays = [ rust-overlay.overlays.default ];
   imports = [
     ./home-manager.nix
     ./hardware-configuration.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "23.05";
+  system.stateVersion = "unstable-01";
 
   # Bootloader
   boot = {
     loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 5;
+        configurationLimit = 20;
         consoleMode = "auto";
       };
       efi.canTouchEfiVariables = true;
@@ -65,20 +66,34 @@
     dbus.enable = true;
     openssh.enable = true;
     gnome.gnome-keyring.enable = true;
-    
+    gvfs.enable = true;
+    udisks2.enable = true;
+    devmon.enable = true;
+
     xserver = {
       enable = true;
-      videoDrivers = [ "amdgpu" ];
       
+      videoDrivers = [ "amdgpu" ];
+
+      enableTCP = true;
+      exportConfiguration = true;
+      logFile = "/var/log/Xorg.0.log";
+      verbose = 7;
+
       displayManager = {
+        autoLogin = {
+          enable = true;
+          user = "cryomyst";
+        };
+        xserverArgs = [ "-listen tcp" ];
+        # Don't select xterm session
+        defaultSession = "hyprland";
+        sessionData.autologinSession = "hyprland";
         sddm = {
           enable = true;
-          # settings = {
-          #   Theme = {
-          #     Current = "breeze";
-          #     CursorTheme = "breeze_cursors";  
-          #   };
-          # };
+          settings = {
+            X11.ServerArguments = "-listen tcp";
+          };
         };
       };
       # desktopManager.plasma5.enable = true;
@@ -101,6 +116,8 @@
       # Breaks Hyprland
       # NIXOS_OZONE_WL = "1";
       DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1";
+      # CROSS_CONTAINER_IN_CONTAINER = "true";
+
     };
     systemPackages = with pkgs; [
       nano
@@ -137,8 +154,11 @@
       "networkmanager" 
       "wheel" 
       "docker"
+      "libvirtd"
     ];
     packages = with pkgs; [
+      gcc
+      rustup
       firefox
       kate
       gitkraken
@@ -156,7 +176,8 @@
       wofi
       obs-studio
       swaylock
-      waybar
+      jetbrains-toolbox
+      swayidle
       hyprpaper
       dunst
       xdg-desktop-portal-gtk
@@ -168,33 +189,67 @@
       lutris
       wineWowPackages.staging
       winetricks
-      jetbrains-toolbox
       dotnet-sdk_8
       noisetorch
       obsidian
       remmina
       freerdp
       parsec-bin
+      xorg.xhost
+      qt5.qtwayland
+      qt6.qtwayland
+      unzip
+      virt-manager
+      hdparm
+      xorg.xkill
+      appimage-run
+      zsh-powerlevel10k
+      wget
+      vlc
     ];
   };
 
   programs = {
+    steam.enable = true;
     dconf.enable = true;
+    waybar.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
     hyprland = {
       enable = true;
       package = hyprland.packages.${pkgs.system}.hyprland;
       xwayland = {
-        hidpi = true;
         enable = true;
       };
     };
     zsh = { 
       enable = true;
-      ohMyZsh = {
+      enableCompletion = true;
+      autosuggestions = {
         enable = true;
-        plugins = [ "git" ];
-        theme = "robbyrussell";
+        async = true;
       };
+      syntaxHighlighting = {
+        enable = true;
+      };
+      enableLsColors = true;
+      # ohMyZsh = {
+      #   enable = true;
+      #   plugins = [ 
+      #     "git"
+      #   ];
+      #   theme = "robbyrussell";
+      # };
+      # Add to path
+      promptInit = "source ''${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      interactiveShellInit = ''
+        export PATH="$HOME/.cargo/bin:$PATH"
+      '';
     };
   };
 
@@ -202,6 +257,9 @@
     docker = {
       enable = true;
       logDriver = "json-file";
+    };
+    libvirtd = {
+      enable = true;
     };
   };
 
@@ -217,7 +275,7 @@
   };
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       corefonts
       ubuntu_font_family
       powerline-fonts
