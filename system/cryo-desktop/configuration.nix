@@ -1,12 +1,11 @@
 { config, pkgs, hyprland, ... }:
 {
   imports = [
+    ./../../common/nix.nix
+    ./../../common/fonts.nix
     ./home.nix
     ./hardware-configuration.nix
   ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "unstable-01";
 
   # Bootloader
   boot = {
@@ -267,27 +266,6 @@
       device = "nas.cryo.red:/rem";
       fsType = "nfs";
     };
-  };
-
-  fonts = {
-    packages = with pkgs; [
-      corefonts
-      ubuntu_font_family
-      powerline-fonts
-      font-awesome
-      source-code-pro
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      emojione
-      kanji-stroke-order-font
-      ipafont
-      liberation_ttf
-      mplus-outline-fonts.githubRelease
-      dina-font
-      proggyfonts
-      jetbrains-mono
-    ];
   };
 
   xdg.portal = {
