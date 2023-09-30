@@ -10,6 +10,10 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @inputs: {
+    nixpkgs.overlays = [ 
+      self.inputs.rust-overlay.overlays.default
+    ];
+
     nixosConfigurations = {
       cryo-desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

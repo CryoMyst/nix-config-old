@@ -1,9 +1,7 @@
-{ config, pkgs, hyprland, rust-overlay, ... }:
-
+{ config, pkgs, hyprland, ... }:
 {
-  nixpkgs.overlays = [ rust-overlay.overlays.default ];
   imports = [
-    ./home-manager.nix
+    ./home.nix
     ./hardware-configuration.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
