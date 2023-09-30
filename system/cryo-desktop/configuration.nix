@@ -201,7 +201,6 @@
       hdparm
       xorg.xkill
       appimage-run
-      zsh-powerlevel10k
       wget
       vlc
     ];
@@ -236,15 +235,13 @@
         enable = true;
       };
       enableLsColors = true;
-      # ohMyZsh = {
-      #   enable = true;
-      #   plugins = [ 
-      #     "git"
-      #   ];
-      #   theme = "robbyrussell";
-      # };
-      # Add to path
-      promptInit = "source ''${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      ohMyZsh = {
+        enable = true;
+        plugins = [ 
+          "git"
+        ];
+        theme = "robbyrussell";
+      };
       interactiveShellInit = ''
         export PATH="$HOME/.cargo/bin:$PATH"
       '';
