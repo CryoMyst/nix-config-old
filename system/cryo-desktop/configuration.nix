@@ -176,6 +176,7 @@
       appimage-run
       gnome.file-roller
       moonlight-qt
+      pavucontrol
       (let cura5 = appimageTools.wrapType2 rec {
         name = "cura5";
         version = "5.4.0";
