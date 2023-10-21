@@ -6,6 +6,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.url = "github:hyprwm/Hyprland";
+    hy3.url = "github:outfoxxed/hy3";
+    hy3.inputs.hyprland.follows = "hyprland";
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
