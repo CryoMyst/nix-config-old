@@ -170,7 +170,6 @@ in
       lutris
       wineWowPackages.staging
       winetricks
-      noisetorch
       obsidian
       remmina
       freerdp
@@ -188,6 +187,7 @@ in
     steam.enable = true;
     dconf.enable = true;
     waybar.enable = true;
+    noisetorch.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [
