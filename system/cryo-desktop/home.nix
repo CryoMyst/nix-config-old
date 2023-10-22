@@ -1,4 +1,4 @@
-{ config, pkgs, home-manager, hyprland, ... }:
+{ config, pkgs, home-manager, hyprland, hy3, ... }:
 
 let
   development-pkgs = import ./packages/development.nix { inherit pkgs; };
@@ -41,6 +41,9 @@ in
               xwayland = {
                 enable = true;
               };
+              plugins = [
+                hy3.packages.x86_64-linux.hy3
+              ];
             };
           };
         };
