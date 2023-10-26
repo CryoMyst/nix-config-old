@@ -224,6 +224,9 @@ in
       interactiveShellInit = ''
         export PATH="$HOME/.cargo/bin:$PATH"
       '';
+      shellInit = ''
+        export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+      '';
     };
   };
 
