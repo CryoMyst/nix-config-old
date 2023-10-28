@@ -1,13 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
-  stdenv
-
-  # Toolchains
-  gcc
-  rustup
-  dotnet-sdk_8
-  python312
-
+  
   # Tools
   vscode
   gitkraken
