@@ -1,5 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
+  git
   zsh
   htop
   unzip
