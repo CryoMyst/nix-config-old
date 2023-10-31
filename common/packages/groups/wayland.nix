@@ -17,4 +17,6 @@ with pkgs; [
   qt5.qtwayland
   qt6.qtwayland
   alacritty
+  dmenu
+  j4-dmenu-desktop
 ]
