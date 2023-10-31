@@ -71,7 +71,7 @@ in
 
               output = {
                 "*" = {
-
+                  bg = "#000000 solid_color";
                 };
                 "HDMI-A-1" = {
                   mode = "3840x2160@120.000Hz";
