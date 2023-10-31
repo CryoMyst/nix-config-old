@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/nur";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,6 +15,10 @@
     };
     rust-overlay.url = "github:oxalica/rust-overlay";
     devenv.url = "github:cachix/devenv";
+    nixos-apple-silicon = {
+      url = "github:tpwrules/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @inputs:
@@ -35,6 +40,16 @@
           inherit computerConfig;
           inherit userConfig;
         };
+        modules = [
+          ./system/${computerConfig.hostname}/configuration.nix
+        ];
+      };
+      ${userConfig.computers.laptop-asahi.hostname} = 
+      let
+        computerConfig = userConfig.computers.laptop-asahi;
+      in nixpkgs.lib.nixosSystem {
+        system = computerConfig.nix-system-type;
+        specialArgs = { inherit inputs; };
         modules = [
           ./system/${computerConfig.hostname}/configuration.nix
         ];
