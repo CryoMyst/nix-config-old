@@ -51,11 +51,22 @@ in
               };
 
               keybindings = let
+                # Just redefine here for now
                 modifier = "Mod4";
               in pkgs.lib.mkOptionDefault {
                 "${modifier}+Shift+Escape" = "exec pkill -SIGUSR1 swayidle";
                 "${modifier}+d" = "exec wofi --show drun";
                 "${modifier}+Shift+d" = "exec wofi --show run";
+                # "${modifier}+n" = "exec pkill -SIGUSR1 '^waybar$'"; # Kills it currently
+                
+                # Screenshot
+                "${modifier}+Print" = "exec \"grim -g \"$(slurp)\" - | wl-copy\"";
+                # Edit the system flake
+                "${modifier}+f1" = "exec ${pkgs.vscode}/bin/code /etc/nixos/flake/";
+
+                # 10th workspace for 2nd display
+                "${modifier}+0" = "workspace number 10";
+                "${modifier}+Shift+0" = "move container to workspace number 10";
               };
 
               modes = {
@@ -93,7 +104,8 @@ in
                 { output = "HDMI-A-1"; workspace = "6"; }
                 { output = "HDMI-A-1"; workspace = "7"; }
                 { output = "HDMI-A-1"; workspace = "8"; }
-                { output = "DP-1"; workspace = "9"; }
+                { output = "HDMI-A-1"; workspace = "9"; }
+                { output = "DP-1"; workspace = "10"; }
               ];
             };
           };
