@@ -8,4 +8,5 @@ with pkgs; [
   wget
   direnv
   lazygit
+  tmux
 ]
