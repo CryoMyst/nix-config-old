@@ -6,4 +6,5 @@ with pkgs; [
   unzip
   hdparm
   wget
+  direnv
 ]

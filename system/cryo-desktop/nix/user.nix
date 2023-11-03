@@ -1,5 +1,8 @@
 { config, pkgs, userConfig, ... }:
 {  
+  users.groups = {
+    "flakemanager" = {};
+  };
   users.users = {
     ${userConfig.username} = {
       isNormalUser = true;
@@ -10,6 +13,7 @@
         "wheel" 
         "docker"
         "libvirtd"
+        "flakemanager"
       ];
     };
   };
