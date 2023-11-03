@@ -175,6 +175,22 @@ in
         i3status = {
           enable = true;
           enableDefault = true;
+          # modules = {
+          #   "volume master" = {
+          #     position = 1;
+          #     settings = {
+          #       format = "♪ %volume";
+          #       format_muted = "♪ muted (%volume)";
+          #       device = "pulse:1";
+          #     };
+          #   };
+          #   "disk /" = {
+          #     position = 2;
+          #     settings = {
+          #       format = "/ %avail";
+          #     };
+          #   };
+          # };
         };
       };
 
