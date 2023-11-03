@@ -7,4 +7,5 @@ with pkgs; [
   hdparm
   wget
   direnv
+  lazygit
 ]
