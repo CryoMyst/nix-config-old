@@ -1,6 +1,6 @@
 {
   username = "cryomyst";
-  user-description = "Cryomyst";
+  user-description = "CryoMyst";
 
   computers = {
     main-desktop = {

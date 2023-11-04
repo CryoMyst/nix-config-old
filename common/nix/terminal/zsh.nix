@@ -1,5 +1,23 @@
-{ config, pkgs, home-manager, userConfig, ... }:
+{ pkgs, home-manager, userConfig, ... }:
 {
+  imports = [
+    ./../base/user.nix
+    ./../base/home-manager.nix
+  ];
+
+  programs = {
+    zsh.enable = true;
+  };
+  environment.shells = with pkgs; [ 
+    zsh 
+  ];
+  
+  users.users = {
+    ${userConfig.username} = {
+      shell = pkgs.zsh;
+    };
+  };
+
   home-manager.users = {
     ${userConfig.username} = {
       programs = {

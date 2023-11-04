@@ -4,8 +4,6 @@ with pkgs; [
   kitty
   wofi
   waybar
-  swaylock
-  swayidle
   slurp
   grim
   wl-clipboard
@@ -14,8 +12,6 @@ with pkgs; [
   xdg-desktop-portal-gtk
   xorg.xhost
   xorg.xkill
-  qt5.qtwayland
-  qt6.qtwayland
   alacritty
   dmenu
   j4-dmenu-desktop

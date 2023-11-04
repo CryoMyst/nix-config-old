@@ -1,38 +1,36 @@
-{ config, pkgs, hyprland, home-manager, userConfig, ... }:
-
-let
-  graphical-editors-pkgs = import   ./../../../common/packages/groups/graphical-editors.nix { inherit pkgs; };
-  social-clients-pkgs = import      ./../../../common/packages/groups/social-clients.nix { inherit pkgs; };
-  terminal-tools-pkgs = import      ./../../../common/packages/groups/terminal-tools.nix { inherit pkgs; };
-  wayland-pkgs = import             ./../../../common/packages/groups/wayland.nix { inherit pkgs; };
-  desktop-pkgs = import             ./../../../common/packages/groups/desktop.nix { inherit pkgs; };
-  all-pkgs = graphical-editors-pkgs 
-    ++ social-clients-pkgs 
-    ++ terminal-tools-pkgs 
-    ++ wayland-pkgs
-    ++ desktop-pkgs;
-in
+{ pkgs, home-manager, userConfig, ... }:
 {
   imports = [
-    (import "${home-manager}/nixos")
+    ./../base/boot.nix
+    ./../base/user.nix
+    ./../base/home-manager.nix
+    ./../system/network-manager.nix
+    ./qt.nix
+    ./gtk.nix
+    ./sound.nix
+    ./swayidle.nix
+    ./swaylock.nix
+    ./i3status.nix
+    ./xserver.nix
   ];
 
-  home-manager = {
-    backupFileExtension = "backup";
-    useGlobalPkgs = true;
-    useUserPackages = true;
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ 
+      pkgs.xdg-desktop-portal-gtk 
+    ];
   };
 
   home-manager.users = {
     ${userConfig.username} = {
-      home = {
-        stateVersion = "23.05";
-        packages = all-pkgs;
-      };
-
       wayland = {
         windowManager = {
-          # exec_always xrandr --output $(xrandr | grep -m 1 3840x2160 | awk '{print $1;}') --primary
           sway = {
             enable = true;
 
@@ -127,6 +125,7 @@ in
                 };
               };
 
+              # TODO: Move to specific to computer
               output = {
                 "*" = {
                   bg = "#000000 solid_color";
@@ -155,104 +154,6 @@ in
                 { output = "DP-1"; workspace = "10"; }
               ];
             };
-          };
-        };
-      };
-
-      programs = {
-        swaylock = {
-          enable = true;
-          settings = {
-            color = "#000000";
-            show-failed-attempts = true;
-          };
-        };
-
-        neovim = {
-          enable = true;
-        };
-
-        i3status = {
-          enable = true;
-          enableDefault = true;
-          # modules = {
-          #   "volume master" = {
-          #     position = 1;
-          #     settings = {
-          #       format = "♪ %volume";
-          #       format_muted = "♪ muted (%volume)";
-          #       device = "pulse:1";
-          #     };
-          #   };
-          #   "disk /" = {
-          #     position = 2;
-          #     settings = {
-          #       format = "/ %avail";
-          #     };
-          #   };
-          # };
-        };
-      };
-
-      services = {
-        swayidle = {
-          enable = true;
-          timeouts = [
-            {
-              timeout = 300;
-              command = "${pkgs.swaylock}/bin/swaylock -f";
-            }
-          ];
-        };
-      };
-
-      gtk = {
-        enable = true;
-        iconTheme = {
-          name = "Adwaita-dark";
-          package = pkgs.gnome.adwaita-icon-theme;
-        };
-        theme = {
-          name = "Adwaita-dark";
-          package = pkgs.gnome.adwaita-icon-theme;
-        };
-      };
-
-      qt = {
-        enable = true;
-        platformTheme = "gnome";
-        style.name = "adwaita-dark";
-      };
-
-      programs = {
-        zsh = {
-          enable = true;
-          enableAutosuggestions = true;
-          enableCompletion = true;
-          enableVteIntegration = true;
-          history = {
-            ignoreAllDups = true;
-          };
-          oh-my-zsh = {
-            enable = true;
-            plugins = [
-              "git"
-              "sudo"
-            ];
-            theme = "robbyrussell";
-          };
-          syntaxHighlighting = {
-            enable = true;
-          };
-        };
-
-        direnv = {
-          enable = true;
-          enableBashIntegration = true;
-          enableZshIntegration = true;
-
-          nix-direnv = {
-            enable = true;
           };
         };
       };
