@@ -40,6 +40,11 @@
           syntaxHighlighting = {
             enable = true;
           };
+
+          shellAliases = {
+            # nohup without nohup.out file
+            "qnohup" = "f() { nohup $1 &> /dev/null &disown };f";
+          }; 
         };
       };
     };
