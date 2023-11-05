@@ -1,3 +1,4 @@
+{ pkgs, home-manager, userConfig, ... }:
 {
   imports = [
     ./hardware-configuration.nix
