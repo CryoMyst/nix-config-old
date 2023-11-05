@@ -8,11 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hy3 = {
-      url = "github:outfoxxed/hy3";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # hy3 = {
+    #   url = "github:outfoxxed/hy3";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     rust-overlay.url = "github:oxalica/rust-overlay";
     devenv.url = "github:cachix/devenv";
     nixos-apple-silicon = {
@@ -49,7 +49,10 @@
         computerConfig = userConfig.computers.laptop-asahi;
       in nixpkgs.lib.nixosSystem {
         system = computerConfig.nix-system-type;
-        specialArgs = { inherit inputs; };
+        specialArgs = inputs // {
+          inherit computerConfig;
+          inherit userConfig;
+        };
         modules = [
           ./system/${computerConfig.hostname}/configuration.nix
         ];
