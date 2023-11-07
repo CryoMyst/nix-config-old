@@ -15,4 +15,5 @@ with pkgs; [
   alacritty
   dmenu
   j4-dmenu-desktop
+  wayvnc
 ]
