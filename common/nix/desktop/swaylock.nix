@@ -1,9 +1,5 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-    ./../base/home-manager.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ./../base/home-manager.nix ];
 
   security = {
     pam = {
@@ -19,11 +15,7 @@
 
   home-manager.users = {
     ${userConfig.username} = {
-      home = {
-        packages = with pkgs; [
-          swaylock
-        ];
-      };
+      home = { packages = with pkgs; [ swaylock ]; };
 
       programs = {
         swaylock = {

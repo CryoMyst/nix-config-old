@@ -1,15 +1,9 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-    ./../base/home-manager.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ./../base/home-manager.nix ];
 
   sound.enable = true;
 
-  hardware = {
-    pulseaudio.enable = false;
-  };
+  hardware = { pulseaudio.enable = false; };
 
   services = {
     pipewire = {

@@ -1,5 +1,4 @@
-{ inputs, pkgs, ... }:
-{
+{ inputs, pkgs, ... }: {
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
@@ -15,9 +14,7 @@
     (import ../../overlays/asahi.nix)
   ];
 
-  boot = {
-    kernelParams = [ "apple_dcp.show_notch=1" ];
-  };
+  boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
 
   services = {
     upower.enable = true;

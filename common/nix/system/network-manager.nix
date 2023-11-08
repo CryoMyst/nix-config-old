@@ -1,9 +1,5 @@
-{ pkgs, home-manager, userConfig, computerConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-    ./../base/home-manager.nix
-  ];
+{ pkgs, home-manager, userConfig, computerConfig, ... }: {
+  imports = [ ./../base/user.nix ./../base/home-manager.nix ];
 
   networking = {
     hostName = computerConfig.hostname;
@@ -11,10 +7,6 @@
   };
 
   users.users = {
-    ${userConfig.username} = {
-      extraGroups = [ 
-        "networkmanager"
-      ];
-    };
+    ${userConfig.username} = { extraGroups = [ "networkmanager" ]; };
   };
 }

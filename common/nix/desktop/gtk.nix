@@ -1,23 +1,11 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-    ./../base/home-manager.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ./../base/home-manager.nix ];
 
-  environment = {
-    sessionVariables = { 
-      GTK_THEME = "Adwaita:dark"; 
-    };
-  };
+  environment = { sessionVariables = { GTK_THEME = "Adwaita:dark"; }; };
 
   home-manager.users = {
     ${userConfig.username} = {
-      home = {
-        packages = with pkgs; [
-          gnome.adwaita-icon-theme
-        ];
-      };
+      home = { packages = with pkgs; [ gnome.adwaita-icon-theme ]; };
 
       gtk = {
         enable = true;

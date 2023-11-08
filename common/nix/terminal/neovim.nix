@@ -1,17 +1,7 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-    ./../base/home-manager.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ./../base/home-manager.nix ];
 
   home-manager.users = {
-    ${userConfig.username} = {
-      programs = {
-        neovim = {
-          enable = true;
-        };
-      };
-    };
+    ${userConfig.username} = { programs = { neovim = { enable = true; }; }; };
   };
 }

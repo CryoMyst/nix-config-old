@@ -1,5 +1,4 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
+{ pkgs, home-manager, userConfig, ... }: {
   imports = [
     ./../base/boot.nix
     ./../base/user.nix
@@ -22,9 +21,7 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [ 
-      pkgs.xdg-desktop-portal-gtk 
-    ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   home-manager.users = {
@@ -36,17 +33,13 @@
 
             config = rec {
               modifier = "Mod4";
-              terminal = "kitty"; 
+              terminal = "kitty";
               startup = [
 
               ];
               defaultWorkspace = "1";
-              floating = {
-                titlebar = true;
-              };
-              focus = {
-                mouseWarping = false;
-              };
+              floating = { titlebar = true; };
+              focus = { mouseWarping = false; };
 
               keybindings = let
                 # Just redefine here for now
@@ -56,59 +49,58 @@
                 "${modifier}+d" = "exec wofi --show drun";
                 "${modifier}+Shift+d" = "exec wofi --show run";
                 # "${modifier}+n" = "exec pkill -SIGUSR1 '^waybar$'"; # Kills it currently
-                
+
                 # Screenshot
-                "${modifier}+Print" = "exec \"grim -g \"$(slurp)\" - | wl-copy\"";
+                "${modifier}+Print" = ''exec grim -g "$(slurp)" - | wl-copy'';
                 # Edit the system flake
-                "${modifier}+f1" = "exec ${pkgs.vscode}/bin/code /etc/nixos/flake/";
+                "${modifier}+f1" =
+                  "exec ${pkgs.vscode}/bin/code /etc/nixos/flake/";
               };
 
-              bars = [
-                {
-                  fonts = {
-                    names = [ "DejaVu Sans Mono" "FontAwesome5Free" ];
-                    size = 11.0;
+              bars = [{
+                fonts = {
+                  names = [ "DejaVu Sans Mono" "FontAwesome5Free" ];
+                  size = 11.0;
+                };
+                mode = "dock";
+                hiddenState = "hide";
+                position = "bottom";
+                statusCommand = "${pkgs.i3status}/bin/i3status";
+                command = "${pkgs.sway}/bin/swaybar";
+                workspaceButtons = true;
+                workspaceNumbers = false;
+                trayOutput = "primary";
+                colors = {
+                  "background" = "#000000";
+                  "statusline" = "#ffffff";
+                  "separator" = "#666666";
+                  "focusedWorkspace" = {
+                    border = "#4c7899";
+                    background = "#285577";
+                    text = "#ffffff";
                   };
-                  mode = "dock";
-                  hiddenState = "hide";
-                  position = "bottom";
-                  statusCommand = "${pkgs.i3status}/bin/i3status";
-                  command = "${pkgs.sway}/bin/swaybar";
-                  workspaceButtons = true;
-                  workspaceNumbers = false;
-                  trayOutput = "primary";
-                  colors = {
-                    "background" = "#000000";
-                    "statusline" = "#ffffff";
-                    "separator" = "#666666";
-                    "focusedWorkspace" = {
-                      border = "#4c7899";
-                      background = "#285577";
-                      text = "#ffffff";
-                    };
-                    "activeWorkspace" = {
-                      border = "#333333";
-                      background = "#5f676a";
-                      text = "#ffffff";
-                    };
-                    "inactiveWorkspace" = {
-                      border = "#333333";
-                      background = "#222222";
-                      text = "#888888";
-                    };
-                    "urgentWorkspace" = {
-                      border = "#2f343a";
-                      background = "#900000";
-                      text = "#ffffff";
-                    };
-                    "bindingMode" = {
-                      border = "#2f343a";
-                      background = "#900000";
-                      text = "#ffffff";
-                    };
+                  "activeWorkspace" = {
+                    border = "#333333";
+                    background = "#5f676a";
+                    text = "#ffffff";
                   };
-                }
-              ];
+                  "inactiveWorkspace" = {
+                    border = "#333333";
+                    background = "#222222";
+                    text = "#888888";
+                  };
+                  "urgentWorkspace" = {
+                    border = "#2f343a";
+                    background = "#900000";
+                    text = "#ffffff";
+                  };
+                  "bindingMode" = {
+                    border = "#2f343a";
+                    background = "#900000";
+                    text = "#ffffff";
+                  };
+                };
+              }];
 
               modes = {
                 resize = {
@@ -121,11 +113,7 @@
                 };
               };
 
-              output = {
-                "*" = {
-                  bg = "#000000 solid_color";
-                };
-              };
+              output = { "*" = { bg = "#000000 solid_color"; }; };
             };
           };
         };

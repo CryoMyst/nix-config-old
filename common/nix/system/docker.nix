@@ -1,16 +1,7 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ];
 
-  users.users = {
-    ${userConfig.username} = {
-      extraGroups = [
-        "docker"
-      ];
-    };
-  };
+  users.users = { ${userConfig.username} = { extraGroups = [ "docker" ]; }; };
 
   virtualisation = {
     docker = {

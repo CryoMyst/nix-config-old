@@ -1,9 +1,5 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-    ./../base/home-manager.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ./../base/home-manager.nix ];
 
   home-manager.users = {
     ${userConfig.username} = {
@@ -13,9 +9,7 @@
           enableBashIntegration = true;
           enableZshIntegration = true;
 
-          nix-direnv = {
-            enable = true;
-          };
+          nix-direnv = { enable = true; };
         };
       };
     };

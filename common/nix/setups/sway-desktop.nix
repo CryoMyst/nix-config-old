@@ -1,18 +1,17 @@
 { pkgs, home-manager, userConfig, ... }:
 # TODO: Move to a better location, eg terminal-tools-pkgs should be imported via the terminal.nix file
 let
-  graphical-editors-pkgs = import   ./../packages/groups/graphical-editors.nix { inherit pkgs; };
-  social-clients-pkgs = import      ./../packages/groups/social-clients.nix { inherit pkgs; };
-  terminal-tools-pkgs = import      ./../packages/groups/terminal-tools.nix { inherit pkgs; };
-  wayland-pkgs = import             ./../packages/groups/wayland.nix { inherit pkgs; };
-  desktop-pkgs = import             ./../packages/groups/desktop.nix { inherit pkgs; };
-  all-pkgs = graphical-editors-pkgs 
-    ++ social-clients-pkgs 
-    ++ terminal-tools-pkgs 
-    ++ wayland-pkgs
-    ++ desktop-pkgs;
-in
-{
+  graphical-editors-pkgs =
+    import ./../packages/groups/graphical-editors.nix { inherit pkgs; };
+  social-clients-pkgs =
+    import ./../packages/groups/social-clients.nix { inherit pkgs; };
+  terminal-tools-pkgs =
+    import ./../packages/groups/terminal-tools.nix { inherit pkgs; };
+  wayland-pkgs = import ./../packages/groups/wayland.nix { inherit pkgs; };
+  desktop-pkgs = import ./../packages/groups/desktop.nix { inherit pkgs; };
+  all-pkgs = graphical-editors-pkgs ++ social-clients-pkgs
+    ++ terminal-tools-pkgs ++ wayland-pkgs ++ desktop-pkgs;
+in {
   imports = [
     ./terminal.nix
     ./../system/docker.nix
@@ -29,13 +28,7 @@ in
     };
   };
 
-  security = {
-    pam = {
-      services = {
-        sddm.enableGnomeKeyring = true;
-      };
-    };
-  };
+  security = { pam = { services = { sddm.enableGnomeKeyring = true; }; }; };
 
   programs = {
     dconf.enable = true;
@@ -44,10 +37,7 @@ in
     nix-ld.enable = true;
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
+      plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
     };
   };
 

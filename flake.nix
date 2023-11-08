@@ -21,42 +21,35 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... } @inputs:
-  let
-    userConfig = import ./config.nix;
-  in {
-    # Setup overlays
-    nixpkgs.overlays = [ 
-      self.inputs.rust-overlay.overlays.default
-    ];
+  outputs = { self, nixpkgs, ... }@inputs:
+    let userConfig = import ./config.nix;
+    in {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
 
-    nixosConfigurations = {
-      ${userConfig.computers.main-desktop.hostname} = 
-      let
-        computerConfig = userConfig.computers.main-desktop;
-      in nixpkgs.lib.nixosSystem {
-        system = computerConfig.nix-system-type;
-        specialArgs = inputs // {
-          inherit computerConfig;
-          inherit userConfig;
-        };
-        modules = [
-          ./system/${computerConfig.hostname}/configuration.nix
-        ];
-      };
-      ${userConfig.computers.laptop-asahi.hostname} = 
-      let
-        computerConfig = userConfig.computers.laptop-asahi;
-      in nixpkgs.lib.nixosSystem {
-        system = computerConfig.nix-system-type;
-        specialArgs = inputs // {
-          inherit computerConfig;
-          inherit userConfig;
-        };
-        modules = [
-          ./system/${computerConfig.hostname}/configuration.nix
-        ];
+      # Setup overlays
+      nixpkgs.overlays = [ self.inputs.rust-overlay.overlays.default ];
+
+      nixosConfigurations = {
+        ${userConfig.computers.main-desktop.hostname} =
+          let computerConfig = userConfig.computers.main-desktop;
+          in nixpkgs.lib.nixosSystem {
+            system = computerConfig.nix-system-type;
+            specialArgs = inputs // {
+              inherit computerConfig;
+              inherit userConfig;
+            };
+            modules = [ ./system/${computerConfig.hostname}/configuration.nix ];
+          };
+        ${userConfig.computers.laptop-asahi.hostname} =
+          let computerConfig = userConfig.computers.laptop-asahi;
+          in nixpkgs.lib.nixosSystem {
+            system = computerConfig.nix-system-type;
+            specialArgs = inputs // {
+              inherit computerConfig;
+              inherit userConfig;
+            };
+            modules = [ ./system/${computerConfig.hostname}/configuration.nix ];
+          };
       };
     };
-  };
 }

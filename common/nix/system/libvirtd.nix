@@ -1,20 +1,7 @@
-{ pkgs, home-manager, userConfig, ... }:
-{
-  imports = [
-    ./../base/user.nix
-  ];
+{ pkgs, home-manager, userConfig, ... }: {
+  imports = [ ./../base/user.nix ];
 
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-    };
-  };
+  virtualisation = { libvirtd = { enable = true; }; };
 
-  users.users = {
-    ${userConfig.username} = {
-      extraGroups = [
-        "libvirtd"
-      ];
-    };
-  };
+  users.users = { ${userConfig.username} = { extraGroups = [ "libvirtd" ]; }; };
 }
