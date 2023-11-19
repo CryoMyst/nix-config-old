@@ -4,10 +4,10 @@
   services = {
     xserver = {
       enable = false;
-      enableTCP = true;
+      enableTCP = false;
       exportConfiguration = true;
       logFile = "/var/log/Xorg.0.log";
-      verbose = 7;
+      # verbose = 7;
     };
   };
 }

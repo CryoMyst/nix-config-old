@@ -11,6 +11,7 @@
     ./swaylock.nix
     ./i3status.nix
     ./xserver.nix
+    ./alacritty.nix
   ];
 
   security = {
@@ -33,7 +34,7 @@
 
             config = rec {
               modifier = "Mod4";
-              terminal = "kitty";
+              terminal = "alacritty";
               startup = [
 
               ];

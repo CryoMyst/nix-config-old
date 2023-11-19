@@ -17,6 +17,23 @@
       fsType = "nfs";
     };
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [
+      5900 # wayvnc
+    ];
+    allowedUDPPorts = [
+      5900 # wayvnc
+    ];
+  };
+
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+  services.pcscd.enable = true;
+
   home-manager.users = {
     ${userConfig.username} = {
       wayland = {

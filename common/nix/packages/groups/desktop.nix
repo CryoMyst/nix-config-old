@@ -10,4 +10,6 @@ with pkgs; [
   gnome.file-roller
   moonlight-qt
   pavucontrol
+  winetricks
+  wineWowPackages.staging
 ]
