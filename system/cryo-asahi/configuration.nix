@@ -11,7 +11,7 @@
     # ./../../common/nix/base/base-asahi.nix
     ./../../common/nix/base/extra-fonts.nix
     ./../../common/nix/base/graphics-asahi.nix
-    ./../../common/nix/setups/sway-desktop.nix
+    # ./../../common/nix/setups/sway-desktop.nix
   ];
 
   boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
