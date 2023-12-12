@@ -22,8 +22,6 @@
       inputs.nixpkgs.overlays = [
         inputs.rust-overlay.overlay 
         inputs.nur.overlay
-        inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
-        (import ./overlays/asahi.nix)
       ];
 
       nixosConfigurations = {

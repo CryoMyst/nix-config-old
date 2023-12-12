@@ -16,7 +16,4 @@ with pkgs; [
   dmenu
   j4-dmenu-desktop
   wayvnc
-  winetricks
-  wineWowPackages.staging
-  # wineWowPackages.waylandFull
 ]

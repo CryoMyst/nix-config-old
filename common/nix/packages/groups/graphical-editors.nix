@@ -2,18 +2,18 @@
 with pkgs; [
   # Tools
   vscode
-  gitkraken
+  # gitkraken
 
   # Should only be used sparingly, not all IDEs work well with nix when installed this way
-  jetbrains-toolbox
+  # jetbrains-toolbox
 
   # JetBrains IDEs
-  jetbrains.pycharm-professional
-  jetbrains.rider
-  jetbrains.clion
-  jetbrains.webstorm
-  jetbrains.goland
-  jetbrains.idea-ultimate
-  jetbrains.datagrip
-  jetbrains.rust-rover
+  # jetbrains.pycharm-professional
+  # jetbrains.rider
+  # jetbrains.clion
+  # jetbrains.webstorm
+  # jetbrains.goland
+  # jetbrains.idea-ultimate
+  # jetbrains.datagrip
+  # jetbrains.rust-rover
 ]

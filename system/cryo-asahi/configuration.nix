@@ -4,10 +4,9 @@
     nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
     ./../../common/nix/base/base.nix
-    # ./../../common/nix/base/base-asahi.nix
     ./../../common/nix/base/extra-fonts.nix
     ./../../common/nix/base/graphics-asahi.nix
-    # ./../../common/nix/setups/sway-desktop.nix
+    ./../../common/nix/setups/sway-desktop.nix
   ];
 
   boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
@@ -16,6 +15,17 @@
     device = "/swap/swapfile";
     size = 64 * 1024;
   }];
+
+  fileSystems = {
+    "/mnt/ram" = {
+      device = "nas.cryo.red:/ram";
+      fsType = "nfs";
+    };
+    "/mnt/rem" = {
+      device = "nas.cryo.red:/rem";
+      fsType = "nfs";
+    };
+  };
 
   hardware = {
     asahi = {

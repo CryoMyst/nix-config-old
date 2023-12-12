@@ -7,7 +7,7 @@
         enable = true;
         editor = false;
         configurationLimit = 20;
-        consoleMode = "auto";
+        consoleMode = pkgs.lib.mkDefault "auto";
       };
       efi.canTouchEfiVariables = true;
     };

@@ -1,1 +1,5 @@
-{ pkgs, ... }: with pkgs; [ teamspeak_client discord telegram-desktop ]
+{ pkgs, ... }: with pkgs; [ 
+    # teamspeak_client 
+    # discord 
+    telegram-desktop 
+]
