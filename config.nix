@@ -10,6 +10,7 @@
     laptop-asahi = {
       hostname = "cryo-asahi";
       nix-system-type = "aarch64-linux";
+      isAsahi = true;
     };
   };
 }

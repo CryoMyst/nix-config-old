@@ -2,33 +2,22 @@
   description = "My NixOS Configuration";
 
   inputs = {
+    rust-overlay.url = "github:oxalica/rust-overlay";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/nur";
+    devenv.url = "github:cachix/devenv";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland.url = "github:hyprwm/Hyprland";
-    # hy3 = {
-    #   url = "github:outfoxxed/hy3";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    devenv.url = "github:cachix/devenv";
-    nixos-apple-silicon = {
-      url = "github:tpwrules/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let userConfig = import ./config.nix;
+  outputs = { self, nixpkgs, ... }@inputs: 
+    let 
+    userConfig = import ./config.nix;
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
-
-      # Setup overlays
-      nixpkgs.overlays = [ self.inputs.rust-overlay.overlays.default ];
-
       nixosConfigurations = {
         ${userConfig.computers.main-desktop.hostname} =
           let computerConfig = userConfig.computers.main-desktop;

@@ -1,4 +1,9 @@
 { inputs, pkgs, ... }: {
+  # inputs.nixpkgs.overlays = [
+  #   inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
+  #   (import ../../overlays/asahi.nix)
+  # ];
+
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
@@ -8,17 +13,11 @@
     ./../../common/nix/setups/sway-desktop.nix
   ];
 
-  nixpkgs.overlays = [
-    inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
-    inputs.nur.overlay
-    (import ../../overlays/asahi.nix)
-  ];
-
   boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
 
   swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 32 * 1024;
+    device = "/swap/swapfile";
+    size = 64 * 1024;
   }];
 
   hardware = {

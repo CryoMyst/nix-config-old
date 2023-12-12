@@ -4,9 +4,8 @@
   hardware = {
     asahi = {
       addEdgeKernelConfig = true;
-      peripheralFirmwareDirectory = ./firmware;
       useExperimentalGPUDriver = true;
-      experimentalGPUInstallMode = "driver";
+      experimentalGPUInstallMode = "overlay";
       withRust = true;
     };
     opengl.enable = true;
