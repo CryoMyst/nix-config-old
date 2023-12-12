@@ -19,11 +19,11 @@
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
 
-      nixpkgs.overlays = [
+      inputs.nixpkgs.overlays = [
         inputs.rust-overlay.overlay 
         inputs.nur.overlay
-        # inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
-        # (import ./overlays/asahi.nix)
+        inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
+        (import ./overlays/asahi.nix)
       ];
 
       nixosConfigurations = {
