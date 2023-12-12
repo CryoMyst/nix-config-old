@@ -12,6 +12,6 @@
       efi.canTouchEfiVariables = true;
     };
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest;
   };
 }
