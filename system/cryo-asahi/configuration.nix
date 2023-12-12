@@ -1,8 +1,8 @@
 { inputs, pkgs, ... }: {
-  # inputs.nixpkgs.overlays = [
-  #   inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
-  #   (import ../../overlays/asahi.nix)
-  # ];
+  inputs.nixpkgs.overlays = [
+    inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
+    (import ../../overlays/asahi.nix)
+  ];
 
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support

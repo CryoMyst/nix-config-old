@@ -18,6 +18,12 @@
     userConfig = import ./config.nix;
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+
+      nixpkgs.overlays = [
+        inputs.rust-overlay.overlay 
+        inputs.nur.overlay
+      ];
+
       nixosConfigurations = {
         ${userConfig.computers.main-desktop.hostname} =
           let computerConfig = userConfig.computers.main-desktop;
