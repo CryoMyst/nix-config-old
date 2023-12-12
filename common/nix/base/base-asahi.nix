@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, nixos-apple-silicon, ... }: {
   imports = [
     ./base.nix
   ];
