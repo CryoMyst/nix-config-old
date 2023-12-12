@@ -5,7 +5,7 @@
   # ];
 
   imports = [
-    inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+    nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
     ./../../common/nix/base/base.nix
     # ./../../common/nix/base/extra-fonts.nix
