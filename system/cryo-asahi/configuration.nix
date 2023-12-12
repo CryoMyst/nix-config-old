@@ -1,7 +1,7 @@
 { pkgs, nixpkgs, nixos-apple-silicon, ... }: {
   nixpkgs.overlays = [
     nixos-apple-silicon.overlays.apple-silicon-overlay
-    (import ../../../overlays/asahi.nix)
+    (import ../../overlays/asahi.nix)
   ];
 
   imports = [
