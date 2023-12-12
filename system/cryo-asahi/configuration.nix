@@ -16,6 +16,17 @@
 
   boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
 
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 32 * 1024;
+  }];
+
+  hardware = {
+    asahi = {
+      peripheralFirmwareDirectory = ./firmware;
+    };
+  };
+
   services = {
     upower.enable = true;
     fstrim.enable = true;
@@ -32,5 +43,12 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+    # List services that you want to enable:
+  security.rtkit.enable = true;
+  security.polkit.enable = true;
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
 }
 

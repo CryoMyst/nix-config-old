@@ -6,7 +6,7 @@
   hardware = {
     opengl = {
       enable = true;
-      extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime amdvlk ];
+      extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime amdvlk mesa.drivers ];
       extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
       driSupport = true;
       driSupport32Bit = true;

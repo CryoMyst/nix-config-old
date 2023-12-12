@@ -23,6 +23,7 @@
     enable = true;
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "*";
   };
 
   home-manager.users = {
@@ -46,6 +47,7 @@
                 # Just redefine here for now
                 modifier = "Mod4";
               in pkgs.lib.mkOptionDefault {
+                "${modifier}+t" = "exec ${terminal}";
                 "${modifier}+Shift+Escape" = "exec pkill -SIGUSR1 swayidle";
                 "${modifier}+d" = "exec wofi --show drun";
                 "${modifier}+Shift+d" = "exec wofi --show run";

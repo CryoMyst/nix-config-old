@@ -25,6 +25,11 @@ in {
         stateVersion = "23.05";
         packages = all-pkgs;
       };
+
+      xdg.configFile.wayvnc = {
+        source = ./../../config/wayvnc;
+        recursive = true;
+      };
     };
   };
 
@@ -44,7 +49,12 @@ in {
   services = {
     printing.enable = true;
     dbus.enable = true;
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        X11Forwarding = true;
+      };
+    };
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     udisks2.enable = true;

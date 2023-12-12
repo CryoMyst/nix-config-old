@@ -22,6 +22,21 @@
           plugins = with pkgs.vimPlugins; [
             telescope-nvim
             nvim-treesitter.withAllGrammars
+            harpoon
+            playground
+            undotree
+            vim-fugitive
+
+            # https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#you-might-not-need-lsp-zero
+            mason-nvim
+            mason-lspconfig-nvim
+            mason-tool-installer-nvim
+            nvim-lspconfig
+            cmp-nvim-lsp
+            cmp-nvim-lsp-signature-help
+            cmp-nvim-lsp-document-symbol
+
+            rose-pine
           ];
         }; 
       };

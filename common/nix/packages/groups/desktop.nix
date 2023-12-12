@@ -12,4 +12,6 @@ with pkgs; [
   pavucontrol
   winetricks
   wineWowPackages.staging
+  virt-manager
+  thunderbird
 ]

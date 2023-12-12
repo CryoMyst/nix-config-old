@@ -5,6 +5,7 @@
     ./../../common/nix/base/extra-fonts.nix
     ./../../common/nix/base/graphics-amd.nix
     ./../../common/nix/setups/sway-desktop.nix
+    ./vfio.nix
   ];
 
   fileSystems = {
@@ -18,16 +19,55 @@
     };
   };
 
+  # Additional disks to mount
+  fileSystems."/mnt/nvme2" = {
+    device = "/dev/disk/by-uuid/d69b4e16-344f-4146-b55f-c4bc1518ea38";
+    fsType = "ext4";
+  };
+
   networking.firewall = {
     allowedTCPPorts = [
-      5900 # wayvnc
     ];
     allowedUDPPorts = [
-      5900 # wayvnc
     ];
   };
 
+  boot.kernelParams = [
+    "zswap.enabled=1"
+    "amd_pstate=active"
+    "amd_iommu=on"
+    "mitigations=off"
+    "panic=1"
+    "nowatchdog"
+    "nmi_watchdog=0"
+    "quiet"
+    "rd.systemd.show_status=auto"
+    "rd.udev.log_priority=3"
+  ];
+
+  services.blueman.enable = true;
+  hardware = {
+    enableAllFirmware = true;
+    bluetooth = {
+      enable = true; # enables support for Bluetooth
+      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+      package = pkgs.bluez;
+      settings = {
+        General = {
+          Name = "CryoDesktop";
+          ControllerMode = "dual";
+          FastConnectable = "true";
+          Experimental = "true";
+        };
+        Policy = {
+          AutoEnable = "true";
+        };
+      };
+    };
+  };
+
   services.udev.packages = [ pkgs.yubikey-personalization ];
+
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
