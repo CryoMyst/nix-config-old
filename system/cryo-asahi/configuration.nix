@@ -1,14 +1,17 @@
 { pkgs, nixpkgs, nixos-apple-silicon, ... }: {
-
+  nixpkgs.overlays = [
+    nixos-apple-silicon.overlays.apple-silicon-overlay
+    (import ../../../overlays/asahi.nix)
+  ];
 
   imports = [
     nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
     ./../../common/nix/base/base.nix
-    ./../../common/nix/base/base-asahi.nix
+    # ./../../common/nix/base/base-asahi.nix
     ./../../common/nix/base/extra-fonts.nix
     ./../../common/nix/base/graphics-asahi.nix
-    # ./../../common/nix/setups/sway-desktop.nix
+    ./../../common/nix/setups/sway-desktop.nix
   ];
 
   boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
