@@ -3,8 +3,8 @@
 
   services = {
     xserver = {
-      enable = false;
-      enableTCP = false;
+      enable = true;
+      enableTCP = true;
       exportConfiguration = true;
       logFile = "/var/log/Xorg.0.log";
       # verbose = 7;

@@ -12,4 +12,5 @@
   };
   system.stateVersion = "unstable-01";
   nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowBroken = true;
 }

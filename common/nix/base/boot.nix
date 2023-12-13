@@ -5,7 +5,7 @@
     loader = {
       systemd-boot = {
         enable = true;
-        editor = false;
+        editor = true;
         configurationLimit = 20;
         consoleMode = pkgs.lib.mkDefault "auto";
       };

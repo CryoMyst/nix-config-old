@@ -32,6 +32,10 @@
       peripheralFirmwareDirectory = ./firmware;
     };
   };
+  
+  services.xserver.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.displayManager.plasma6.enable = true;
 
   services = {
     upower.enable = true;
