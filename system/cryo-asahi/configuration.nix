@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs, nixos-apple-silicon, ... }: {
+{ pkgs, nixpkgs, nixos-apple-silicon, userConfig, ... }: {
 
   imports = [
     nixos-apple-silicon.nixosModules.apple-silicon-support
@@ -15,6 +15,15 @@
     device = "/swap/swapfile";
     size = 64 * 1024;
   }];
+
+  home-manager.users = {
+    ${userConfig.username} = {
+      home = {
+        packages = with pkgs; [
+        ];
+      };
+    };
+  };
 
   fileSystems = {
     "/mnt/ram" = {
