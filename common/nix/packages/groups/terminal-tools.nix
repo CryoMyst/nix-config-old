@@ -1,7 +1,8 @@
 { pkgs, ... }: with pkgs; [ 
     git 
     zsh 
-    htop 
+    htop
+    btop
     unzip 
     hdparm 
     wget 

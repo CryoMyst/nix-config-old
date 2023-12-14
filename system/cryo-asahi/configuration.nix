@@ -1,4 +1,7 @@
-{ pkgs, nixpkgs, nixos-apple-silicon, userConfig, ... }: {
+{ pkgs, nixpkgs, nixos-apple-silicon, userConfig, ... }: 
+let 
+  speakersafetyd = (import ./speakers/speakersafetyd.nix) { inherit pkgs; };
+in {
 
   imports = [
     nixos-apple-silicon.nixosModules.apple-silicon-support
@@ -7,9 +10,12 @@
     ./../../common/nix/base/extra-fonts.nix
     ./../../common/nix/base/graphics-asahi.nix
     ./../../common/nix/setups/sway-desktop.nix
+    # Dangerous audio implementation
+    # https://github.com/tpwrules/nixos-apple-silicon/issues/119
+    ./speakers/enable-speakers.nix
   ];
 
-  boot = { kernelParams = [ "apple_dcp.show_notch=1" ]; };
+  boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
 
   swapDevices = [{
     device = "/swap/swapfile";
@@ -20,25 +26,76 @@
     ${userConfig.username} = {
       home = {
         packages = with pkgs; [
+          speakersafetyd
         ];
+      };
+
+      wayland = {
+        windowManager = {
+          sway = {
+            config = rec {
+              keybindings = let
+                modifier = "Mod4";
+              in pkgs.lib.mkOptionDefault {
+              };
+
+              output = {
+                "eDP-1" = {
+                  mode = "3456x2160@60.000Hz";
+                  scale = "1.2";
+                };
+              };
+            };
+          };
+        };
+      };
+
+      xdg.desktopEntries = {
+        "Firefox - CryoMyst" = {
+          name = "Firefox CryoMyst";
+          exec = "firefox -p CryoMyst";
+          terminal = false;
+        };
+        "Firefox - Icon" = {
+          name = "Firefox Icon";
+          exec = "firefox -p Icon";
+          terminal = false;
+        };
+      };
+
+      programs = {
+        i3status = {
+          modules = {
+            "battery 1" = {
+              position = 4;
+              settings = {
+                path = "/sys/class/power_supply/macsmc-battery/uevent";
+                format = "%percentage (%remaining)";
+              };
+            };
+          };
+        };
       };
     };
   };
 
-  fileSystems = {
-    "/mnt/ram" = {
-      device = "nas.cryo.red:/ram";
-      fsType = "nfs";
-    };
-    "/mnt/rem" = {
-      device = "nas.cryo.red:/rem";
-      fsType = "nfs";
-    };
-  };
+  programs.nm-applet.enable = true;
+
+  # fileSystems = {
+  #   "/mnt/ram" = {
+  #     device = "nas.cryo.red:/ram";
+  #     fsType = "nfs";
+  #   };
+  #   "/mnt/rem" = {
+  #     device = "nas.cryo.red:/rem";
+  #     fsType = "nfs";
+  #   };
+  # };
 
   hardware = {
     asahi = {
       peripheralFirmwareDirectory = ./firmware;
+
     };
   };
   
@@ -50,6 +107,7 @@
     upower.enable = true;
     fstrim.enable = true;
     timesyncd.enable = true;
+    strongswan.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

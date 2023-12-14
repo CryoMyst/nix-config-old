@@ -7,6 +7,7 @@
       useExperimentalGPUDriver = true;
       experimentalGPUInstallMode = "overlay";
       withRust = true;
+      setupAlsaUcm = true;
     };
     opengl.enable = true;
   };
