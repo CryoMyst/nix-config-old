@@ -3,7 +3,8 @@
     zsh 
     htop
     btop
-    unzip 
+    unzip
+    p7zip
     hdparm 
     wget 
     direnv 

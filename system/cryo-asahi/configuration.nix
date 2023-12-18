@@ -27,6 +27,7 @@ in {
       home = {
         packages = with pkgs; [
           speakersafetyd
+          # citrix_workspace
         ];
       };
 
@@ -79,6 +80,7 @@ in {
     };
   };
 
+  services.xserver.desktopManager.gnome.enable = true;
   programs.nm-applet.enable = true;
 
   # fileSystems = {

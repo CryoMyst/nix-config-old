@@ -18,4 +18,5 @@ with pkgs; [
   wayvnc
   waypipe
   waycheck
+  brightnessctl
 ]
