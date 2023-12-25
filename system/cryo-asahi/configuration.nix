@@ -81,6 +81,7 @@ in {
   };
 
   services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
   programs.nm-applet.enable = true;
 
   # fileSystems = {
@@ -129,5 +130,26 @@ in {
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.blueman.enable = true;
+  hardware = {
+    enableAllFirmware = true;
+    bluetooth = {
+      enable = true; # enables support for Bluetooth
+      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+      package = pkgs.bluez;
+      settings = {
+        General = {
+          Name = "Cryo-Asahi";
+          ControllerMode = "dual";
+          FastConnectable = "true";
+          Experimental = "true";
+        };
+        Policy = {
+          AutoEnable = "true";
+        };
+      };
+    };
+  };
 }
 
