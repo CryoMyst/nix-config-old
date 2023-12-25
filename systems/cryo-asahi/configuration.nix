@@ -15,6 +15,7 @@ in {
     hostname = "cryo-asahi";
     setups.sway.enable = true;
     features.base.graphics.gpu = "asahi";
+    features.deskop.sound.enable = mkForce false;
   };
 
   boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };

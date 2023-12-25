@@ -31,7 +31,7 @@ in {
         useExperimentalGPUDriver = true;
         experimentalGPUInstallMode = "overlay";
         withRust = true;
-        setupAlsaUcm = true;
+        # setupAlsaUcm = true;
       };
       opengl.enable = true;
     } else {};
