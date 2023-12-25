@@ -6,14 +6,16 @@ in {
   imports = [
     nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
-    ./../../common/nix/base/base.nix
-    ./../../common/nix/base/extra-fonts.nix
-    ./../../common/nix/base/graphics-asahi.nix
-    ./../../common/nix/setups/sway-desktop.nix
-    # Dangerous audio implementation
-    # https://github.com/tpwrules/nixos-apple-silicon/issues/119
     ./speakers/enable-speakers.nix
+    ./../../nix/modules.nix
   ];
+
+  cryo = {
+    username = "cryomyst";
+    hostname = "cryo-asahi";
+    setups.sway.enable = true;
+    features.base.graphics.gpu = "asahi";
+  };
 
   boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
 

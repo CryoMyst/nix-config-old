@@ -30,7 +30,6 @@
               inherit flake-config;
             };
             modules = [
-              inputs.home-manager.nixosModules.home-manager
               ./systems/${computer-config.hostname}/configuration.nix 
             ];
           };
@@ -43,8 +42,7 @@
               inherit computer-config;
               inherit flake-config;
             };
-            modules = [ 
-              inputs.home-manager.nixosModules.home-manager
+            modules = [
               ./systems/${computer-config.hostname}/configuration.nix 
             ];
           };
