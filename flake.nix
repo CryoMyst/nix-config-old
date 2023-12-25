@@ -15,35 +15,38 @@
 
   outputs = { self, nixpkgs, ... }@inputs: 
     let 
-    userConfig = import ./config.nix;
+      flake-config = import ./config.nix;
+      user-config = flake-config.user;
     in {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
-
-      inputs.nixpkgs.overlays = [
-        inputs.rust-overlay.overlay 
-        inputs.nur.overlay
-      ];
-
       nixosConfigurations = {
-        ${userConfig.computers.main-desktop.hostname} =
-          let computerConfig = userConfig.computers.main-desktop;
+        ${flake-config.computers.main-desktop.hostname} =
+          let 
+            computer-config = flake-config.computers.main-desktop;
           in nixpkgs.lib.nixosSystem {
-            system = computerConfig.nix-system-type;
+            system = computer-config.system-type;
             specialArgs = inputs // {
-              inherit computerConfig;
-              inherit userConfig;
+              inherit user-config;
+              inherit computer-config;
+              inherit flake-config;
             };
-            modules = [ ./system/${computerConfig.hostname}/configuration.nix ];
+            modules = [
+              inputs.home-manager.nixosModules.home-manager
+              ./systems/${computer-config.hostname}/configuration.nix 
+            ];
           };
-        ${userConfig.computers.laptop-asahi.hostname} =
-          let computerConfig = userConfig.computers.laptop-asahi;
+        ${flake-config.computers.work-macbook.hostname} =
+          let computer-config = flake-config.computers.work-macbook;
           in nixpkgs.lib.nixosSystem {
-            system = computerConfig.nix-system-type;
+            system = computer-config.system-type;
             specialArgs = inputs // {
-              inherit computerConfig;
-              inherit userConfig;
+              inherit user-config;
+              inherit computer-config;
+              inherit flake-config;
             };
-            modules = [ ./system/${computerConfig.hostname}/configuration.nix ];
+            modules = [ 
+              inputs.home-manager.nixosModules.home-manager
+              ./systems/${computer-config.hostname}/configuration.nix 
+            ];
           };
       };
     };

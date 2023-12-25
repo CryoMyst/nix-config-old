@@ -1,16 +1,21 @@
 {
-  username = "cryomyst";
-  user-description = "CryoMyst";
+  user = {
+    username = "cryomyst";
+    description = "CryoMyst";
+  };
 
   computers = {
     main-desktop = {
       hostname = "cryo-desktop";
-      nix-system-type = "x86_64-linux";
+      system-type = "x86_64-linux";
     };
-    laptop-asahi = {
+    work-macbook = {
       hostname = "cryo-asahi";
-      nix-system-type = "aarch64-linux";
-      isAsahi = true;
+      system-type = "aarch64-linux";
+
+      flags = {
+        asahi = true;
+      };
     };
   };
 }
