@@ -3,6 +3,10 @@ with lib;
 let
   cryo = config.cryo;
   cfg = config.cryo.features.base.base;
+
+  permitted-insecure-packages = [
+    "electron-25.9.0"
+  ];
 in {
   options.cryo.features.base.base = {
     enable = mkEnableOption "Enable base nixos configuration";
@@ -32,6 +36,8 @@ in {
     nixpkgs.config = {
       allowUnfree = true;
       allowBroken = true;
+
+      permittedInsecurePackages = permitted-insecure-packages;
     };
   };
 }
