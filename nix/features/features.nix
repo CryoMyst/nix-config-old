@@ -1,8 +1,35 @@
 { pkgs, home-manager, ... }: {
-  imports  = [
-    ./base/base.nix
-    ./desktop/desktop.nix
+  imports = [
+    ./alacritty/alacritty.nix
+    ./bluetooth/bluetooth.nix
+    ./boot/boot.nix
+    ./direnv/direnv.nix
+    ./docker/docker.nix
+    ./fonts/fonts.nix
+    ./graphics/graphics.nix
+    ./gtk/gtk.nix
+    ./home-manager/home-manager.nix
+    ./i3status/i3status.nix
+    ./laptop/laptop.nix
+    ./libvirt/libvirt.nix
+    ./locale/locale.nix
+    ./network/network.nix
+    ./nix/nix.nix
+    ./nvim/nvim.nix
+    ./qt/qt.nix
+    ./social/social.nix
+    ./sound/sound.nix
+    ./ssh/ssh.nix
+    ./sway/sway.nix
+    ./swayidle/swayidle.nix
+    ./swaylock/swaylock.nix
     ./terminal/terminal.nix
-    ./virtualisation/virtualisation.nix
+    ./tmux/tmux.nix
+    ./user/user.nix
+    ./wayland/wayland.nix
+    ./wayvnc/wayvnc.nix
+    ./xserver/xserver.nix
+    ./yubikey/yubikey.nix
+    ./zsh/zsh.nix
   ];
 }

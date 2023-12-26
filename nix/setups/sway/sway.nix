@@ -6,14 +6,8 @@ let
 
   graphical-editors-pkgs =
     import ./../../packages/groups/graphical-editors.nix { inherit pkgs; };
-  social-clients-pkgs =
-    import ./../../packages/groups/social-clients.nix { inherit pkgs; };
-  terminal-tools-pkgs =
-    import ./../../packages/groups/terminal-tools.nix { inherit pkgs; };
-  wayland-pkgs = import ./../../packages/groups/wayland.nix { inherit pkgs; };
   desktop-pkgs = import ./../../packages/groups/desktop.nix { inherit pkgs; };
-  all-pkgs = graphical-editors-pkgs ++ social-clients-pkgs
-    ++ terminal-tools-pkgs ++ wayland-pkgs ++ desktop-pkgs;
+  all-pkgs = graphical-editors-pkgs ++ desktop-pkgs;
 in {
   options.cryo.setups.sway = {
     enable = mkEnableOption "Enable cryo desktop sway setup";
@@ -22,27 +16,25 @@ in {
   config = mkIf cfg.enable {
     cryo = {
       features = {
-        base = {
-          base.enable = true;
-          boot.enable = true;
-          fonts.enable = true;
-          home-manager.enable = true;
-          network.enable = true;
-          user.enable = true;
-        };
-        desktop = {
-          sway.enable = mkDefault true;
-        };
-        terminal = {
-          direnv.enable = mkDefault true;
-          tmux.enable = mkDefault true;
-          nvim.enable = mkDefault true;
-          zsh.enable = mkDefault true;
-        };
-        virtualisation = {
-          docker.enable = mkDefault true;
-          libvirt.enable = mkDefault true;
-        };
+        nix.enable = true;
+        boot.enable = true;
+        fonts.enable = true;
+        home-manager.enable = true;
+        network.enable = true;
+        user.enable = true;
+        sway.enable = true;
+        direnv.enable = true;
+        tmux.enable = true;
+        nvim.enable = true;
+        zsh.enable = true;
+        social.enable = true;
+        ssh.enable = true;
+        terminal.enable = true;
+        docker.enable = mkDefault true;
+        libvirt.enable = mkDefault true;
+      };
+      personal = {
+        ssh.cryomyst = true;
       };
     };
 
@@ -76,12 +68,6 @@ in {
     services = {
       printing.enable = true;
       dbus.enable = true;
-      openssh = {
-        enable = true;
-        settings = {
-          X11Forwarding = true;
-        };
-      };
       gnome.gnome-keyring.enable = true;
       gvfs.enable = true;
       udisks2.enable = true;

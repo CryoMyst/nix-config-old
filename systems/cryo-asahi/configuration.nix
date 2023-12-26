@@ -6,7 +6,6 @@ in {
   imports = [
     nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
-    #./speakers/enable-speakers.nix
     ./../../nix/modules.nix
   ];
 
@@ -14,8 +13,15 @@ in {
     username = "cryomyst";
     hostname = "cryo-asahi";
     setups.sway.enable = true;
-    features.base.graphics.gpu = "asahi";
-    features.desktop.sound.enable = lib.mkForce false;
+    features.graphics.gpu = "apple";
+    features.sound.enable = lib.mkForce false;
+    features.bluetooth.enable = true;
+    personal = {
+      shares = {
+        ram = true;
+        rem = true;
+      };
+    };
   };
   
   boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
@@ -29,8 +35,6 @@ in {
     ${user-config.username} = {
       home = {
         packages = with pkgs; [
-          speakersafetyd
-          # citrix_workspace
         ];
       };
 
@@ -83,20 +87,7 @@ in {
     };
   };
 
-  services.xserver.desktopManager.gnome.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
   programs.nm-applet.enable = true;
-
-  # fileSystems = {
-  #   "/mnt/ram" = {
-  #     device = "nas.cryo.red:/ram";
-  #     fsType = "nfs";
-  #   };
-  #   "/mnt/rem" = {
-  #     device = "nas.cryo.red:/rem";
-  #     fsType = "nfs";
-  #   };
-  # };
 
   hardware = {
     asahi = {
@@ -104,10 +95,6 @@ in {
       setupAsahiSound = true;
     };
   };
-  
-  services.xserver.enable = true;
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.displayManager.plasma6.enable = true;
 
   services = {
     upower.enable = true;
@@ -130,29 +117,5 @@ in {
     # List services that you want to enable:
   security.rtkit.enable = true;
   security.polkit.enable = true;
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  services.blueman.enable = true;
-  hardware = {
-    enableAllFirmware = true;
-    bluetooth = {
-      enable = true; # enables support for Bluetooth
-      powerOnBoot = true; # powers up the default Bluetooth controller on boot
-      package = pkgs.bluez;
-      settings = {
-        General = {
-          Name = "Cryo-Asahi";
-          ControllerMode = "dual";
-          FastConnectable = "true";
-          Experimental = "true";
-        };
-        Policy = {
-          AutoEnable = "true";
-        };
-      };
-    };
-  };
 }
 

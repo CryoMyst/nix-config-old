@@ -10,31 +10,19 @@
     username = "cryomyst";
     hostname = "cryo-desktop";
     setups.sway.enable = true;
-    features.base.graphics.gpu = "amdgpu";
-  };
-
-  fileSystems = {
-    "/mnt/ram" = {
-      device = "nas.cryo.red:/ram";
-      fsType = "nfs";
-    };
-    "/mnt/rem" = {
-      device = "nas.cryo.red:/rem";
-      fsType = "nfs";
+    features.graphics.gpu = "amdgpu";
+    features.bluetooth.enable = true;
+    personal = {
+      shares = {
+        ram = true;
+        rem = true;
+      };
     };
   };
 
-  # Additional disks to mount
   fileSystems."/mnt/nvme2" = {
     device = "/dev/disk/by-uuid/d69b4e16-344f-4146-b55f-c4bc1518ea38";
     fsType = "ext4";
-  };
-
-  networking.firewall = {
-    allowedTCPPorts = [
-    ];
-    allowedUDPPorts = [
-    ];
   };
 
   boot.kernelParams = [
@@ -50,41 +38,21 @@
     "rd.udev.log_priority=3"
   ];
 
-  services.blueman.enable = true;
-  hardware = {
-    enableAllFirmware = true;
-    bluetooth = {
-      enable = true; # enables support for Bluetooth
-      powerOnBoot = true; # powers up the default Bluetooth controller on boot
-      package = pkgs.bluez;
-      settings = {
-        General = {
-          Name = "CryoDesktop";
-          ControllerMode = "dual";
-          FastConnectable = "true";
-          Experimental = "true";
-        };
-        Policy = {
-          AutoEnable = "true";
-        };
-      };
-    };
-  };
-
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-  services.pcscd.enable = true;
-
   home-manager.users = {
     ${user-config.username} = {
       wayland = {
         windowManager = {
           sway = {
             config = rec {
+              startup = [
+                {
+                  command = ''
+                    xrandr --verbose --output "HDMI-A-1" --primary
+                  '';
+                  always = true;
+                }
+              ];
+
               keybindings = let
                 # Just redefine here for now
                 modifier = "Mod4";

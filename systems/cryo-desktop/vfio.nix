@@ -5,7 +5,7 @@ let
   ];
 in 
 { pkgs, lib, config, home-manager, user-config, ... }: {
-  cryo.features.virtualisation.libvirt = {
+  cryo.features.libvirt = {
     enable = true;
     host-cpu = "amd";
     pcie-devices = gpu-ids;

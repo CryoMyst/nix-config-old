@@ -5,6 +5,7 @@ let
 in {
   imports = [
     ./features/features.nix
+    ./personal/personal.nix
     ./setups/setups.nix
   ];
 
@@ -12,12 +13,14 @@ in {
     username = mkOption {
       type = types.str;
       description = ''
-        The username to use for home-manager.
+        The username to setup.
       '';
     };
     hostname = mkOption {
       type = types.str;
-      description = "Hostname of the computer";
+      description = ''
+        The hostname to setup.
+      '';
     };
   };
 }

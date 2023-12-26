@@ -5,8 +5,15 @@ let
   x86Desktop = with pkgs; [
     # x86 only desktop applications
     winetricks
-    wineWowPackages.staging
-    lutris
+    wineWowPackages.stagingFull
+    (lutris.override {
+      extraPkgs = pkgs: [
+        winetricks
+        wineWowPackages.staging
+        libnghttp2
+        jansson
+      ];
+    })
   ];
 
   desktop = with pkgs; [
