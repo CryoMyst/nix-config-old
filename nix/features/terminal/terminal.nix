@@ -17,6 +17,7 @@ let
     zoxide 
     pciutils 
     valgrind
+    distrobox
   ];
 in {
   options.cryo.features.terminal = {
