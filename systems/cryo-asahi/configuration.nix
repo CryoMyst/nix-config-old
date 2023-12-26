@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs, nixos-apple-silicon, user-config, ... }: 
+{ lib, pkgs, nixpkgs, nixos-apple-silicon, user-config, ... }: 
 let 
   speakersafetyd = (import ./speakers/speakersafetyd.nix) { inherit pkgs; };
 in {
@@ -6,7 +6,7 @@ in {
   imports = [
     nixos-apple-silicon.nixosModules.apple-silicon-support
     ./hardware-configuration.nix
-    ./speakers/enable-speakers.nix
+    #./speakers/enable-speakers.nix
     ./../../nix/modules.nix
   ];
 
@@ -15,9 +15,9 @@ in {
     hostname = "cryo-asahi";
     setups.sway.enable = true;
     features.base.graphics.gpu = "asahi";
-    features.deskop.sound.enable = mkForce false;
+    features.desktop.sound.enable = lib.mkForce false;
   };
-
+  
   boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
 
   swapDevices = [{
@@ -101,7 +101,7 @@ in {
   hardware = {
     asahi = {
       peripheralFirmwareDirectory = ./firmware;
-
+      setupAsahiSound = true;
     };
   };
   

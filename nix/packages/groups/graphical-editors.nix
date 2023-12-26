@@ -30,4 +30,4 @@ in
       ++ jetbrainsProducts
   else
     tools
-      ++ jetbrainsProducts
+      # ++ jetbrainsProducts

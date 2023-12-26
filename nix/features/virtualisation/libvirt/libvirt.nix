@@ -7,7 +7,8 @@ in {
   options.cryo.features.virtualisation.libvirt = {
     enable = mkEnableOption "Enable libvirt";
     host-cpu = mkOption {
-      type = types.enum [ "intel" "amd" "m1" ];
+      type = types.enum [ "intel" "amd" "m1" "none" ];
+      default = "none";
       description = "The CPU type of the host";
     };
     pcie-devices = mkOption {
