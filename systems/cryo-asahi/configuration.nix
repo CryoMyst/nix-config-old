@@ -1,6 +1,6 @@
 { lib, pkgs, nixpkgs, nixos-apple-silicon, user-config, ... }: 
 let 
-  speakersafetyd = (import ./speakers/speakersafetyd.nix) { inherit pkgs; };
+  work-vpns = builtins.fromJSON (builtins.readFile /etc/nixos/secrets/vpns/work_vpns.json);
 in {
 
   imports = [
@@ -23,7 +23,16 @@ in {
       };
     };
   };
-  
+
+  # Need to put behind an if file exists
+  networking.networkmanager.enableStrongSwan = true;
+  services.strongswan = {
+    enable = true;
+    secrets = work-vpns.secrets;
+    connections = work-vpns.connections;
+    ca = work-vpns.ca;
+  };
+
   boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
 
   swapDevices = [{
@@ -100,7 +109,6 @@ in {
     upower.enable = true;
     fstrim.enable = true;
     timesyncd.enable = true;
-    strongswan.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

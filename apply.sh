@@ -23,7 +23,7 @@ done
 echo "Checking configuration with nixos-rebuild build for hostname: ${HOSTNAME}..."
 
 # Run the nixos-rebuild build command with the current hostname using sudo
-time sudo nixos-rebuild --flake ".#${HOSTNAME}" build --show-trace
+time sudo nixos-rebuild --impure --flake ".#${HOSTNAME}" build --show-trace
 
 # If the build was successful, ask for confirmation to apply
 if [ $? -eq 0 ]; then
@@ -33,7 +33,7 @@ if [ $? -eq 0 ]; then
     if [ "$CONFIRM" = "y" ] || [ "$CONFIRM" = "Y" ]; then
         # Run the nixos-rebuild switch command
         echo "Applying configuration..."
-        time sudo nixos-rebuild --flake ".#${HOSTNAME}" switch
+        time sudo nixos-rebuild --impure --flake ".#${HOSTNAME}" switch
     else
         echo "Configuration not applied."
     fi
