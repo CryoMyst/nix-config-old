@@ -24,6 +24,7 @@ in {
         enable = true;
         enableTCP = true;
         exportConfiguration = true;
+        libinput.enable = true;
         logFile = "/var/log/Xorg.0.log";
         # verbose = 7;
       };

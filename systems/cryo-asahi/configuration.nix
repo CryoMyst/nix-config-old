@@ -1,6 +1,5 @@
 { lib, pkgs, nixpkgs, nixos-apple-silicon, user-config, ... }: 
 let 
-  work-vpns = builtins.fromJSON (builtins.readFile /etc/nixos/secrets/vpns/work_vpns.json);
 in {
 
   imports = [
@@ -16,21 +15,16 @@ in {
     features.graphics.gpu = "apple";
     features.sound.enable = lib.mkForce false;
     features.bluetooth.enable = true;
+    features.strongswan = {
+      enable = true;
+      external-json = "/etc/nixos/secrets/vpns/work_vpns.json";
+    };
     personal = {
       shares = {
         ram = true;
         rem = true;
       };
     };
-  };
-
-  # Need to put behind an if file exists
-  networking.networkmanager.enableStrongSwan = true;
-  services.strongswan = {
-    enable = true;
-    secrets = work-vpns.secrets;
-    connections = work-vpns.connections;
-    ca = work-vpns.ca;
   };
 
   boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
@@ -110,9 +104,6 @@ in {
     fstrim.enable = true;
     timesyncd.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -20,6 +20,7 @@
     ./social/social.nix
     ./sound/sound.nix
     ./ssh/ssh.nix
+    ./strongswan/strongswan.nix
     ./sway/sway.nix
     ./swayidle/swayidle.nix
     ./swaylock/swaylock.nix
