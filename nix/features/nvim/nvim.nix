@@ -36,6 +36,8 @@ in {
               playground
               undotree
               vim-fugitive
+              vim-nix
+              direnv-vim
 
               # https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#you-might-not-need-lsp-zero
               mason-nvim
