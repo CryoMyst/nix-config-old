@@ -19,7 +19,7 @@ in {
     networking.networkmanager.enableStrongSwan = true;
     services.strongswan = 
     (
-        if cfg.external-json != "" 
+        if cfg.external-json != "" && builtins.pathExists cfg.external-json
         then readJsonConfig cfg.external-json 
         else {}
     ) // { enable = true; };
