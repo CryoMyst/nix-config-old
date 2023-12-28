@@ -6,9 +6,17 @@ let
 in {
   options.cryo.features.nvim = {
     enable = mkEnableOption "Enable neovim";
+    setup = mkOption {
+      type = types.enum [ "cryo" "lazyvim" ];
+      default = "cryo";
+      description = ''
+        A set of options to pass to the nvim module.
+      '';
+    };
   };
 
-  config = mkIf cfg.enable {
+  # If enabled and setup is custom
+  config = mkIf (cfg.enable && cfg.setup == "cryo") {
     home-manager.users = {
       ${cryo.username} = { 
         xdg.configFile.nvim = {
@@ -50,6 +58,26 @@ in {
 
               rose-pine
             ];
+          }; 
+        };
+      };
+    };
+  } // mkIf (cfg.enable && cfg.setup == "lazyvim")
+  {
+    home-manager.users = {
+      ${cryo.username} = { 
+        xdg.configFile.nvim = {
+          source = ./nvim-lazyvim;
+          recursive = true;
+        };
+
+        programs = { 
+          neovim = { 
+            enable = true; 
+            defaultEditor = true;
+            viAlias = true;
+            vimAlias = true;
+            vimdiffAlias = true;
           }; 
         };
       };
