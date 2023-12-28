@@ -74,13 +74,27 @@ in {
           windowManager = {
             sway = {
               enable = true;
+              extraConfig = ''
+                for_window {
+                  [shell="xwayland"] title_format "%title [XWayland]"
+                  [app_id="firefox"] inhibit_idle fullscreen
+                  [app_id="mpv"] inhibit_idle fullscreen
+                  [window_role="pop-up"] floating enable
+                  [window_role="bubble"] floating enable
+                  [window_role="dialog"] floating enable
+                  [window_type="dialog"] floating enable
+                }
+              '';
 
               config = rec {
                 modifier = "${cfg.modifier}";
                 terminal = "alacritty";
                 startup = [
-
+                  
                 ];
+
+
+
                 defaultWorkspace = "1";
                 floating = { titlebar = true; };
                 focus = { mouseWarping = false; };
