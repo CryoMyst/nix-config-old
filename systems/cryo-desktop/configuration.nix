@@ -12,7 +12,7 @@
     setups.sway.enable = true;
     features.graphics.gpu = "amdgpu";
     features.bluetooth.enable = true;
-    features.nvim.setup = "lazyvim";
+    features.nvim.setup = "cryo";
     personal = {
       shares = {
         ram = true;

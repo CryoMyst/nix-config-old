@@ -9,6 +9,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    services.logind.extraConfig = ''
+      # don’t shutdown when power button is short-pressed
+      HandlePowerKey=ignore
+    '';
+
     home-manager.users = {
       ${cryo.username} = { 
         home = {

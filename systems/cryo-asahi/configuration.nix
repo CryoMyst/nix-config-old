@@ -13,8 +13,10 @@ in {
     hostname = "cryo-asahi";
     setups.sway.enable = true;
     features.graphics.gpu = "apple";
+    features.laptop.enable = true;
     features.sound.enable = lib.mkForce false;
     features.bluetooth.enable = true;
+    features.nvim.setup = "cryo";
     features.strongswan = {
       enable = true;
       external-json = "/etc/nixos/secrets/vpns/work_vpns.json";
@@ -27,7 +29,12 @@ in {
     };
   };
 
-  boot = { kernelParams = [ "apple_dcp.show_notch=0" ]; };
+  boot = { 
+    kernelParams = [ 
+      "apple_dcp.show_notch=0"
+      "hid_apple.fnmode=1"
+    ]; 
+  };
 
   swapDevices = [{
     device = "/swap/swapfile";
@@ -48,6 +55,14 @@ in {
               keybindings = let
                 modifier = "Mod4";
               in pkgs.lib.mkOptionDefault {
+                "${modifier}+Shift+i" = "exec swaymsg input type:touchpad events toggle";
+                "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
+                "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
+                "Shift+XF86MonBrightnessUp" = "exec brightnessctl set +10% -d kbd_backlight";
+                "Shift+XF86MonBrightnessDown" = "exec brightnessctl set 10%- -d kbd_backlight";
+
+                # Screenshot
+                "${modifier}+Shift+p" = ''exec grim -g "$(slurp)" - | wl-copy'';
               };
 
               output = {

@@ -5,14 +5,17 @@ let
   
   jetbrainsProducts = with pkgs; [
     # JetBrains IDEs
-    # jetbrains.pycharm-professional
-    jetbrains.rider
+    jetbrains.pycharm-professional
     jetbrains.clion
     jetbrains.webstorm
     jetbrains.goland
     jetbrains.idea-ultimate
     jetbrains.datagrip
     jetbrains.rust-rover
+  ];
+
+  x86JetbrainsProducts = with pkgs; [
+    jetbrains.rider
   ];
 
   x86Tools = with pkgs; [
@@ -28,6 +31,7 @@ in
     tools 
       ++ x86Tools
       ++ jetbrainsProducts
+      ++ x86JetbrainsProducts
   else
     tools
-      # ++ jetbrainsProducts
+      ++ jetbrainsProducts
