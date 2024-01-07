@@ -2,20 +2,26 @@
 let
   system = pkgs.system;
 
-  
+  # Common plugins for all JetBrains products
+  commonPlugins = ["github-copilot"];
+
+  # Function to add plugins to a JetBrains product
+  addPluginsToJetBrainsProduct = product: specificPlugins: 
+    pkgs.jetbrains.plugins.addPlugins product (commonPlugins ++ specificPlugins);
+
   jetbrainsProducts = with pkgs; [
-    # JetBrains IDEs
-    jetbrains.pycharm-professional
-    jetbrains.clion
-    jetbrains.webstorm
-    jetbrains.goland
-    jetbrains.idea-ultimate
-    jetbrains.datagrip
-    jetbrains.rust-rover
+    # Apply common plugins and specific plugins (if any) to each JetBrains IDE
+    (addPluginsToJetBrainsProduct jetbrains.pycharm-professional [])
+    (addPluginsToJetBrainsProduct jetbrains.clion [])
+    (addPluginsToJetBrainsProduct jetbrains.webstorm [])
+    (addPluginsToJetBrainsProduct jetbrains.goland [])
+    (addPluginsToJetBrainsProduct jetbrains.idea-ultimate [])
+    (addPluginsToJetBrainsProduct jetbrains.datagrip [])
+    (addPluginsToJetBrainsProduct jetbrains.rust-rover [])
   ];
 
   x86JetbrainsProducts = with pkgs; [
-    jetbrains.rider
+    (addPluginsToJetBrainsProduct jetbrains.rider [])
   ];
 
   x86Tools = with pkgs; [

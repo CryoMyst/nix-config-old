@@ -16,6 +16,7 @@ in {
             wl-clipboard
             waypipe
             waycheck
+            xwayland-run
             grim
             slurp
           ];

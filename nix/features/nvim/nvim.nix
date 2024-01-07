@@ -24,6 +24,12 @@ in {
           recursive = true;
         };
 
+        home = {
+          packages = with pkgs; [
+            ripgrep
+          ];
+        };
+
         programs = { 
           neovim = { 
             enable = true; 
@@ -44,19 +50,24 @@ in {
               playground
               undotree
               vim-fugitive
-              vim-nix
               direnv-vim
 
               # https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#you-might-not-need-lsp-zero
-              mason-nvim
-              mason-lspconfig-nvim
-              mason-tool-installer-nvim
+              lsp-zero-nvim
               nvim-lspconfig
+              nvim-cmp
               cmp-nvim-lsp
               cmp-nvim-lsp-signature-help
               cmp-nvim-lsp-document-symbol
+              luasnip
 
               rose-pine
+              dracula-nvim
+            ];
+
+            extraPackages = with pkgs; [
+              omnisharp-roslyn
+              rust-analyzer
             ];
           }; 
         };

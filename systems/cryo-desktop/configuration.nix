@@ -1,4 +1,8 @@
 { lib, pkgs, home-manager, user-config, ... }:
+let
+  pyfa = (import ./../../nix/packages/custom/pyfa.nix) { inherit pkgs; };
+  cura = (import ./../../nix/packages/custom/cura.nix) { inherit pkgs; };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -41,6 +45,14 @@
 
   home-manager.users = {
     ${user-config.username} = {
+      home = {
+        packages = with pkgs; [
+          obs-studio
+        ] ++ [
+          pyfa
+          cura
+        ];
+      };
       wayland = {
         windowManager = {
           sway = {
