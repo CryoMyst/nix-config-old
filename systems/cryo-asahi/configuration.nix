@@ -1,5 +1,6 @@
 { lib, pkgs, nixpkgs, nixos-apple-silicon, user-config, ... }: 
 let 
+  openlens-arm64 = (import ./../../nix/packages/custom/openlens-arm64.nix) { inherit pkgs; inherit lib; };
 in {
 
   imports = [
@@ -45,6 +46,9 @@ in {
     ${user-config.username} = {
       home = {
         packages = with pkgs; [
+          azure-cli
+        ] ++ [
+          openlens-arm64
         ];
       };
 
@@ -66,9 +70,22 @@ in {
               };
 
               output = {
+                "HDMI-A-1" = {
+                  mode = "3840x2160@120.000Hz";
+                  pos = "0,0";
+                };
                 "eDP-1" = {
                   mode = "3456x2160@60.000Hz";
-                  scale = "1.2";
+                  scale = "1.0";
+                  pos = "3840,0";
+                };
+              };
+
+              input = {
+                "*" = {
+                  natural_scroll = "disabled";
+                  accel_profile = "flat";
+                  pointer_accel = "0.5";
                 };
               };
             };
