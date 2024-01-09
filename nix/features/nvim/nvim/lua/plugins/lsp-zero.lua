@@ -1,4 +1,5 @@
 local lsp = require('lsp-zero').preset('recommended')
+
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({buffer = bufnr})
 end)
@@ -11,3 +12,9 @@ lsp.setup_servers({
 })
 
 lsp.setup()
+
+local lspconfig = require("lspconfig")
+lspconfig.omnisharp.setup({
+    cmd = { vim.g.nix.omnisharp_roslyn.path },
+})
+

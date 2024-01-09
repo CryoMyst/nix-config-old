@@ -40,6 +40,9 @@ in {
 
             # Overrides init.lua, source from $XDG_CONFIG_HOME/nvim/source.lua
             extraLuaConfig = ''
+              vim.g.nix = { 
+                omnisharp_roslyn = { path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp"; };
+              };
               require('source')
             '';
             
