@@ -42,6 +42,7 @@ in {
             extraLuaConfig = ''
               vim.g.nix = { 
                 omnisharp_roslyn = { path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp"; };
+                rust_analyzer = { path = "${pkgs.rust-analyzer}/bin/rust-analyzer"; };
               };
               require('source')
             '';
