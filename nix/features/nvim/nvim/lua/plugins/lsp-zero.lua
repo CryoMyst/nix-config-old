@@ -18,6 +18,9 @@ lspconfig.rust_analyzer.setup({
     cmd = { vim.g.nix.rust_analyzer.path };
     settings = {
         ["rust-analyzer"] = {
+            -- checkOnSave = {
+            --     command = vim.g.nix.clippy.path;
+            -- }
         }
     };
 });

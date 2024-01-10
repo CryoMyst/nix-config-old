@@ -43,6 +43,7 @@ in {
               vim.g.nix = { 
                 omnisharp_roslyn = { path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp"; };
                 rust_analyzer = { path = "${pkgs.rust-analyzer}/bin/rust-analyzer"; };
+                clippy = { path = "${pkgs.clippy}/bin/clippy-driver"; };
               };
               require('source')
             '';
@@ -72,6 +73,7 @@ in {
             extraPackages = with pkgs; [
               omnisharp-roslyn
               rust-analyzer
+              clippy
             ];
           }; 
         };
