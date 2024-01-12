@@ -103,6 +103,15 @@ in {
                   # Just redefine here for now
                   modifier = "${cfg.modifier}";
                 in pkgs.lib.mkOptionDefault {
+                  "${modifier}+Control+Shift+l" = "move workspace to output right";
+                  "${modifier}+Control+Shift+h" = "move workspace to output left";
+                  "${modifier}+Control+Shift+j" = "move workspace to output down";
+                  "${modifier}+Control+Shift+k" = "move workspace to output up";
+                  "${modifier}+Control+Shift+Right" = "move workspace to output right";
+                  "${modifier}+Control+Shift+Left" = "move workspace to output left";
+                  "${modifier}+Control+Shift+Down" = "move workspace to output down";
+                  "${modifier}+Control+Shift+Up" = "move workspace to output up";
+
                   "${modifier}+t" = "exec ${terminal}";
                   "${modifier}+Shift+Escape" = "exec pkill -SIGUSR1 swayidle";
                   "${modifier}+d" = "exec wofi --show drun";
