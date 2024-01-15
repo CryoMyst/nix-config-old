@@ -75,7 +75,7 @@ function find_build_host() {
 }
 
 function build_flake() {
-    local build_command="nixos-rebuild --impure --flake .#$HOSTNAME build"
+    local build_command="sudo nixos-rebuild --impure --flake .#$HOSTNAME build"
 
     if [ $TRACE -eq 1 ]; then
         build_command="$build_command --show-trace"
@@ -97,7 +97,7 @@ function build_flake() {
 }
 
 function apply_flake() {
-    local apply_command="nixos-rebuild --impure --flake .#$HOSTNAME switch"
+    local apply_command="sudo nixos-rebuild --impure --flake .#$HOSTNAME switch"
 
     if [ $TRACE -eq 1 ]; then
         apply_command="$apply_command --show-trace"
