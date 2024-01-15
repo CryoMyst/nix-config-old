@@ -27,10 +27,10 @@ in {
       };
     } else if cfg.gpu == "apple" then {
       asahi = {
-        addEdgeKernelConfig = true;
-        useExperimentalGPUDriver = true;
+        #addEdgeKernelConfig = true;
+        #useExperimentalGPUDriver = true;
         experimentalGPUInstallMode = "overlay";
-        withRust = true;
+        #withRust = true;
       };
       opengl.enable = true;
     } else {};
