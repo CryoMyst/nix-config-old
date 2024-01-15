@@ -1,15 +1,11 @@
 #!/usr/bin/env sh
 
-# Get the current hostname
-HOSTNAME=$(hostname)
-# --update 
-# Determines if we should run nix flake update
-UPDATE=0
-# --accept
-# Skips the confirmation prompt
-ACCEPT=0
+function setup_parameters() {
+    HOSTNAME=$(hostname)
+    UPDATE=0
+    ACCEPT=0
+    TRACE=0
 
-function setup_flags() {
     for arg in "$@"; do
         if [ "$arg" = "--update" ]; then
             echo "Update flag detected."
@@ -19,12 +15,16 @@ function setup_flags() {
             echo "Accept flag detected."
             ACCEPT=1
         fi
+        if [ "$arg" = "--trace" ]; then
+            echo "Trace flag detected."
+            TRACE=1
+        fi
     done
 }
 
 function push_flake_directory() {
-    echo "Switching to script directory..."
     # Push the current directory onto the stack and change to the directory of this script
+    echo "Switching to script directory..."
     pushd "$(dirname "$0")" > /dev/null
 }
 
@@ -33,21 +33,89 @@ function restore_directory() {
     popd > /dev/null
 }
 
+function exit_error() {
+    echo "Error: $1"
+    exit 1
+}
+
 function update_flake() {
+    local update_command="nix flake update"
     echo "Updating flake..."
-    time nix flake update
+    if [ $TRACE -eq 1 ]; then
+        update_command="$update_command --show-trace"
+    fi
+    time eval $update_command
+    if [ $? -ne 0 ]; then
+        echo "Flake update failed. Please check your configuration."
+        exit_error "Flake update failed."
+    fi
     echo "Flake update was successful."
 }
 
+function find_build_host() {
+    # Check if jq is installed
+    if ! command -v jq &> /dev/null; then
+        return
+    fi
+
+    # Check if the hostname entry exists in the JSON file
+    local hostname="$1"
+    local hosts=$(jq -r ".[\"$hostname\"][]?" build-hosts.json)
+    if [ -z "$hosts" ]; then
+        return
+    fi
+
+    # Iterate through hosts and check if they are SSH-able
+    for host in $hosts; do
+        if ssh -o ConnectTimeout=5 -q $host exit; then
+            echo $host
+            return
+        fi
+    done
+}
+
 function build_flake() {
+    local build_command="nixos-rebuild --impure --flake .#$HOSTNAME build"
+
+    if [ $TRACE -eq 1 ]; then
+        build_command="$build_command --show-trace"
+    fi
+
+    available_host=$(find_build_host $HOSTNAME)
+    if [ -n "$available_host" ]; then
+        echo "Found available build host: $available_host"
+        build_command="$build_command --build-host $available_host"
+    fi
+
     echo "Checking configuration with nixos-rebuild build for hostname: ${HOSTNAME}..."
-    time sudo nixos-rebuild --impure --flake ".#${HOSTNAME}" build --show-trace
+    time eval $build_command
+    if [ $? -ne 0 ]; then
+        echo "Configuration build failed. Please check your configuration."
+        exit_error "Configuration build failed."
+    fi
     echo "Configuration build was successful."
 }
 
 function apply_flake() {
+    local apply_command="nixos-rebuild --impure --flake .#$HOSTNAME switch"
+
+    if [ $TRACE -eq 1 ]; then
+        apply_command="$apply_command --show-trace"
+    fi
+
+    available_host=$(find_build_host $HOSTNAME)
+    if [ -n "$available_host" ]; then
+        echo "Found available build host: $available_host"
+        apply_command="$apply_command --build-host $available_host"
+    fi
+
     echo "Applying configuration..."
-    time sudo nixos-rebuild --impure --flake ".#${HOSTNAME}" switch
+    time eval $apply_command
+    if [ $? -ne 0 ]; then
+        echo "Configuration apply failed. Please check your configuration."
+        exit_error "Configuration apply failed."
+    fi
+    echo "Configuration apply was successful."
 }
 
 function prompt_user() {
@@ -71,7 +139,7 @@ function prompt_user() {
 }
 
 function run() {
-    setup_flags "$@"
+    setup_parameters "$@"
 
     # Log the directory switch action
     push_flake_directory

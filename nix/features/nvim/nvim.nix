@@ -44,6 +44,7 @@ in {
                 omnisharp_roslyn = { path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp"; };
                 rust_analyzer = { path = "${pkgs.rust-analyzer}/bin/rust-analyzer"; };
                 clippy = { path = "${pkgs.clippy}/bin/clippy-driver"; };
+                netcoredbg = { path = "${pkgs.netcoredbg}/bin/netcoredbg"; };
               };
               require('source')
             '';
@@ -66,6 +67,10 @@ in {
               cmp-nvim-lsp-document-symbol
               luasnip
 
+              # https://aaronbos.dev/posts/debugging-csharp-neovim-nvim-dap
+              nvim-dap
+              nvim-dap-ui
+
               rose-pine
               dracula-nvim
             ];
@@ -74,6 +79,7 @@ in {
               omnisharp-roslyn
               rust-analyzer
               clippy
+              netcoredbg
             ];
           }; 
         };

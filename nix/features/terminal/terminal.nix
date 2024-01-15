@@ -12,6 +12,7 @@ let
     p7zip
     hdparm 
     wget  
+    jq
     lazygit
     lazydocker
     zoxide 
