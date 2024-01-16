@@ -1,4 +1,4 @@
-{ lib, pkgs, config, home-manager, ... }:
+{ lib, pkgs, config, home-manager, rust-overlay, ... }:
 with lib;                      
 let
   cryo = config.cryo;
@@ -40,5 +40,8 @@ in {
 
       permittedInsecurePackages = permitted-insecure-packages;
     };
+    nixpkgs.overlays = [
+      rust-overlay.overlays.default 
+    ];
   };
 }

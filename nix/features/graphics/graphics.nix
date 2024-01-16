@@ -1,4 +1,4 @@
-{ lib, pkgs, config, home-manager, ... }:
+{ lib, pkgs, config, home-manager, nixos-apple-silicon, ... }:
 with lib;                      
 let
   cryo = config.cryo;
@@ -27,10 +27,10 @@ in {
       };
     } else if cfg.gpu == "apple" then {
       asahi = {
-        #addEdgeKernelConfig = true;
-        #useExperimentalGPUDriver = true;
+        addEdgeKernelConfig = true;
+        useExperimentalGPUDriver = true;
         experimentalGPUInstallMode = "overlay";
-        #withRust = true;
+        withRust = true;
       };
       opengl.enable = true;
     } else {};

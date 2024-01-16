@@ -18,14 +18,15 @@ in {
     features.sound.enable = lib.mkForce false;
     features.bluetooth.enable = true;
     features.nvim.setup = "cryo";
+    features.libvirt.enable = false;
     features.strongswan = {
       enable = true;
       external-json = "/etc/nixos/secrets/vpns/work_vpns.json";
     };
     personal = {
       shares = {
-        ram = true;
-        rem = true;
+        #ram = true;
+        #rem = true;
       };
     };
   };
