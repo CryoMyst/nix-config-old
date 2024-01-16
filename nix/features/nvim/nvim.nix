@@ -73,6 +73,8 @@ in {
 
               rose-pine
               dracula-nvim
+
+              vim-be-good
             ];
 
             extraPackages = with pkgs; [
