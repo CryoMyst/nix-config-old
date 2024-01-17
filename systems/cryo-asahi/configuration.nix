@@ -47,7 +47,7 @@ in {
     ${user-config.username} = {
       home = {
         packages = with pkgs; [
-          #azure-cli
+          azure-cli
         ] ++ [
           openlens-arm64
         ];

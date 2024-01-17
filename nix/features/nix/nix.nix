@@ -1,4 +1,6 @@
-{ lib, pkgs, config, home-manager, rust-overlay, ... }:
+{ lib, pkgs, config, home-manager, rust-overlay,
+nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-master,
+... }:
 with lib;                      
 let
   cryo = config.cryo;
@@ -41,7 +43,8 @@ in {
       permittedInsecurePackages = permitted-insecure-packages;
     };
     nixpkgs.overlays = [
-      rust-overlay.overlays.default 
-    ];
+      rust-overlay.overlays.default
+      # (import ./../../overlays/azure-cli.nix)
+    ] ++ (import ./../../overlays/default.nix { inherit pkgs lib nixpkgs nixpkgs-stable nixpkgs-unstable nixpkgs-master; });
   };
 }
