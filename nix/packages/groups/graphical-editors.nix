@@ -18,10 +18,13 @@ let
     (addPluginsToJetBrainsProduct jetbrains.idea-ultimate [])
     (addPluginsToJetBrainsProduct jetbrains.datagrip [])
     (addPluginsToJetBrainsProduct jetbrains.rust-rover [])
-  ];
-
-  x86JetbrainsProducts = with pkgs; [
-    (addPluginsToJetBrainsProduct jetbrains.rider [])
+    (addPluginsToJetBrainsProduct (jetbrains.rider.overrideAttrs (oldAttrs: {
+      buildInputs = oldAttrs.buildInputs ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+        expat
+        libxml2
+        xz
+      ];
+    }))[])
   ];
 
   x86Tools = with pkgs; [
@@ -37,7 +40,6 @@ in
     tools 
       ++ x86Tools
       ++ jetbrainsProducts
-      ++ x86JetbrainsProducts
   else
     tools
       ++ jetbrainsProducts
