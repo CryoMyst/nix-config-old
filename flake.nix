@@ -23,10 +23,12 @@
       flake-config = import ./config.nix;
       user-config = flake-config.user;
     in {
-      nixosConfigurations = {
-        ${flake-config.computers.main-desktop.hostname} =
+      nixosConfigurations = nixpkgs.lib.mapAttrs' (
+        name: value: nixpkgs.lib.nameValuePair (
+          value.hostname
+        ) (
           let 
-            computer-config = flake-config.computers.main-desktop;
+            computer-config = value;
           in nixpkgs.lib.nixosSystem rec {
             system = computer-config.system-type;
             specialArgs = inputs // {
@@ -40,23 +42,8 @@
             modules = [
               ./systems/${computer-config.hostname}/configuration.nix 
             ];
-          };
-        ${flake-config.computers.work-macbook.hostname} =
-          let computer-config = flake-config.computers.work-macbook;
-          in nixpkgs.lib.nixosSystem rec {
-            system = computer-config.system-type;
-            specialArgs = inputs // {
-              inherit user-config;
-              inherit computer-config;
-              inherit flake-config;
-              nixpkgs-stable = import inputs.nixpkgs-stable { inherit system; };
-              nixpkgs-unstable = import inputs.nixpkgs-unstable { inherit system; };
-              nixpkgs-master = import inputs.nixpkgs-master { inherit system; };
-            };
-            modules = [
-              ./systems/${computer-config.hostname}/configuration.nix 
-            ];
-          };
-      };
+          }
+        )
+      ) flake-config.computers;
     };
 }

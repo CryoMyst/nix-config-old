@@ -12,10 +12,6 @@
     work-macbook = {
       hostname = "cryo-asahi";
       system-type = "aarch64-linux";
-
-      flags = {
-        asahi = true;
-      };
     };
   };
 }
