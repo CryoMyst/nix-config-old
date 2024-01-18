@@ -10,14 +10,15 @@ function setup_parameters() {
         if [ "$arg" = "--update" ]; then
             echo "Update flag detected."
             UPDATE=1
-        fi
-        if [ "$arg" = "--accept" ]; then
+        elif [ "$arg" = "--accept" ]; then
             echo "Accept flag detected."
             ACCEPT=1
-        fi
-        if [ "$arg" = "--trace" ]; then
+        elif [ "$arg" = "--trace" ]; then
             echo "Trace flag detected."
             TRACE=1
+        else 
+            echo "Unknown flag detected: $arg"
+            exit_error "Unknown flag detected."
         fi
     done
 }
