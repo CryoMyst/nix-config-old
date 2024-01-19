@@ -3,7 +3,7 @@ let
   lib = super.lib;
 in
 {
-  inherit (self.nixpkgs-stable);
+  inherit (self.nixpkgs-master);
   # broken in nixpkgs-unstable
-  azure-cli = super.nixpkgs-stable.azure-cli;
+  azure-cli = super.nixpkgs-master.azure-cli;
 }
