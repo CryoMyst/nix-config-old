@@ -35,6 +35,24 @@ function get_inputs() {
     nix flake metadata --json | nix run nixpkgs#jq '.locks.nodes.root' | nix run nixpkgs#jq '.inputs' | nix run nixpkgs#jq 'keys' | nix run nixpkgs#jq '.[]' | sed 's/"//g'
 }
 
+function get_unlocked_inputs() {
+    local inputs=$(get_inputs)
+    # .locked[]
+    local locked_values=$(cat ./inputs-config.json | nix run nixpkgs#jq '.locked[]' | sed 's/"//g')
+    for input in $inputs; do
+        local found=0
+        for locked_value in $locked_values; do
+            if [ "$input" = "$locked_value" ]; then
+                found=1
+                break
+            fi
+        done
+        if [ $found -eq 0 ]; then
+            echo "$input"
+        fi
+    done
+}
+
 function prompt_list() {
     local prompt="$1"
     local default="$3"
@@ -57,13 +75,20 @@ function run() {
     push_flake_directory
 
     # Update all inputs
-    local options=("All Input Clean")
+    local options=("All Unlocked Input Clean")
     prompt_list "Select an option:" "$options" "Cancel"
     if [ "$SELECTED_PROMPT" = "Cancel" ]; then
         echo "Cancelled."
     elif [ "$SELECTED_PROMPT" = "All" ]; then
         echo "Updating all inputs..."
         update_all
+    elif [ "$SELECTED_PROMPT" = "Unlocked" ]; then
+        echo "Updating unlocked inputs..."
+        local unlocked_inputs=$(get_unlocked_inputs)
+        for input in $unlocked_inputs; do
+            echo "Updating input: $input"
+            # update_inputs "$input"
+        done
     elif [ "$SELECTED_PROMPT" = "Input" ]; then
         # Get the list of inputs
         local inputs=$(get_inputs)
