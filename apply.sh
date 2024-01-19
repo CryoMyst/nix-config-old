@@ -54,14 +54,9 @@ function update_flake() {
 }
 
 function find_build_host() {
-    # Check if jq is installed
-    if ! command -v jq &> /dev/null; then
-        return
-    fi
-
     # Check if the hostname entry exists in the JSON file
     local hostname="$1"
-    local hosts=$(jq -r ".[\"$hostname\"][]?" build-hosts.json)
+    local hosts=$(nix run nixpkgs#jq -r ".[\"$hostname\"][]?" build-hosts.json)
     if [ -z "$hosts" ]; then
         return
     fi
