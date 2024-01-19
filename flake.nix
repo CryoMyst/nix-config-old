@@ -11,7 +11,7 @@
     
     nur.url = "github:nix-community/nur";
     devenv.url = "github:cachix/devenv";
-    nixos-apple-silicon.url = "github:yu-re-ka/nixos-m1/nixos-unstable-fixes";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
