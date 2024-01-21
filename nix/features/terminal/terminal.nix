@@ -19,6 +19,7 @@ let
     pciutils 
     valgrind
     distrobox
+    screen
   ];
 in {
   options.cryo.features.terminal = {
