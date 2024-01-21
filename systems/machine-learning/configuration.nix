@@ -43,6 +43,9 @@ in
   programs = {
     zsh.enable = true;
     nix-ld.enable = true;
+  };
+
+  services = {
     dbus.enable = true;
   };
 
