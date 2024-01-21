@@ -15,6 +15,8 @@ in
       boot.enable = true;
       home-manager.enable = true;
       network.enable = true;
+      graphics.enable = true;
+      graphics.gpu = "nvidia";
       user.enable = true;
       direnv.enable = true;
       tmux.enable = true;
@@ -22,7 +24,6 @@ in
       zsh.enable = true;
       ssh.enable = true;
       terminal.enable = true;
-      graphics.gpu = "nvidia";
       nvim.setup = "cryo";
       docker = {
         enable = true;
