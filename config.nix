@@ -13,5 +13,9 @@
       hostname = "cryo-asahi";
       system-type = "aarch64-linux";
     };
+    machine-learning = {
+      hostname = "machine-learning";
+      system-type = "x86_64-linux";
+    };
   };
 }

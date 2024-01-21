@@ -6,6 +6,7 @@ let
 in {
   options.cryo.features.docker = {
     enable = mkEnableOption "Enable docker";
+    nvidia = mkEnableOption "Enable nvidia support";
   };
 
   config = mkIf cfg.enable {
@@ -18,6 +19,7 @@ in {
     virtualisation = {
       docker = {
         enable = true;
+        enableNvidia = cfg.nvidia;
         logDriver = "json-file";
       };
     };
