@@ -7,6 +7,7 @@ in
     ./../../nix/modules.nix
   ];
 
+  networking.firewall.enable = lib.mkForce false;
   cryo = {
     username = "cryomyst";
     hostname = "machine-learning";
