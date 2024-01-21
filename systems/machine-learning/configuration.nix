@@ -35,7 +35,7 @@ in
         rem = true;
       };
       ssh = {
-        enable = true;
+        cryomyst = true;
       };
     };
   };
