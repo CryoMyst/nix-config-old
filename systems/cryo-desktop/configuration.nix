@@ -1,4 +1,4 @@
-{ lib, pkgs, home-manager, user-config, ... }:
+{ lib, pkgs, home-manager, user-config, sops-nix, ... }:
 let
   pyfa = (import ./../../nix/packages/custom/pyfa.nix) { inherit pkgs; };
   cura = (import ./../../nix/packages/custom/cura.nix) { inherit pkgs; };
@@ -8,6 +8,7 @@ in
     ./hardware-configuration.nix
     ./vfio.nix
     ./../../nix/modules.nix
+    sops-nix.nixosModules.sops
   ];
 
   cryo = {
