@@ -2,11 +2,11 @@
 with lib;                      
 let
   cryo = config.cryo;
-  cfg = config.cryo.features.servies.strongswan;
+  cfg = config.cryo.features.services.strongswan;
 
   readJsonConfig = file: builtins.fromJSON (builtins.readFile file);
 in {
-  options.cryo.features.servies.strongswan = {
+  options.cryo.features.services.strongswan = {
     enable = mkEnableOption "Enable strongswan";
     external-json = mkOption {
       type = types.str;
