@@ -5,10 +5,10 @@ let
   ];
 in 
 { pkgs, lib, config, home-manager, user-config, ... }: {
-  cryo.features.libvirt = {
+  cryo.features.services.libvirt = {
     enable = true;
     host-cpu = "amd";
     pcie-devices = gpu-ids;
-    looking-glass = true;
-  }; 
+  };
+  cryo.features.programs.looking-glass.enable = true;
 }

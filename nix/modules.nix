@@ -4,23 +4,19 @@ let
   cfg = config.cryo;
 in {
   imports = [
-    ./features/features.nix
+    ./features
+    ./setups
     ./personal/personal.nix
-    ./setups/setups.nix
   ];
 
   options.cryo = {
     username = mkOption {
       type = types.str;
-      description = ''
-        The username to setup.
-      '';
+      description = "The username to use.";
     };
     hostname = mkOption {
       type = types.str;
-      description = ''
-        The hostname to setup.
-      '';
+      description = "The hostname to use.";
     };
   };
 }

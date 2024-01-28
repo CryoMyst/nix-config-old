@@ -13,13 +13,13 @@ in {
     username = "cryomyst";
     hostname = "cryo-asahi";
     setups.sway.enable = true;
-    features.graphics.gpu = "apple";
-    features.laptop.enable = true;
-    features.sound.enable = lib.mkForce false;
-    features.bluetooth.enable = true;
-    features.nvim.setup = "cryo";
-    features.libvirt.enable = false;
-    features.strongswan = {
+    features.system.graphics.gpu = "apple";
+    # features.laptop.enable = true;
+    features.services.sound.enable = lib.mkForce false;
+    features.services.bluetooth.enable = true;
+    features.terminal.nvim.setup = "cryo";
+    features.services.libvirt.enable = false;
+    features.services.strongswan = {
       enable = true;
       external-json = "/etc/nixos/secrets/vpns/work_vpns.json";
     };
@@ -48,6 +48,7 @@ in {
       home = {
         packages = with pkgs; [
           azure-cli
+          brightnessctl
         ] ++ [
           openlens-arm64
         ];
@@ -72,12 +73,12 @@ in {
 
               output = {
                 "HDMI-A-1" = {
-                  mode = "3840x2160@120.000Hz";
+                  mode = "3840x2160@60.000Hz";
                   pos = "0,0";
                 };
                 "eDP-1" = {
                   mode = "3456x2160@60.000Hz";
-                  scale = "1.0";
+                  scale = "1.6";
                   pos = "3840,0";
                 };
               };

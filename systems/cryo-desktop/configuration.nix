@@ -15,9 +15,9 @@ in
     username = "cryomyst";
     hostname = "cryo-desktop";
     setups.sway.enable = true;
-    features.graphics.gpu = "amdgpu";
-    features.bluetooth.enable = true;
-    features.nvim.setup = "cryo";
+    features.system.graphics.gpu = "amdgpu";
+    features.services.bluetooth.enable = true;
+    features.terminal.nvim.setup = "cryo";
     personal = {
       shares = {
         ram = true;
