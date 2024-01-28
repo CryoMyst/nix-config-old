@@ -20,6 +20,8 @@ let
     valgrind
     distrobox
     screen
+    man-pages
+    man-pages-posix
   ];
 in {
   options.cryo.features.terminal = {
@@ -34,5 +36,6 @@ in {
         };
       };
     };
+    documentation.dev.enable = true;
   };
 }
