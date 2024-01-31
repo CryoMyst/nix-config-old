@@ -40,11 +40,13 @@ in {
 
             # Overrides init.lua, source from $XDG_CONFIG_HOME/nvim/source.lua
             extraLuaConfig = ''
-              vim.g.nix = { 
-                omnisharp_roslyn = { path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp"; };
-                rust_analyzer = { path = "${pkgs.rust-analyzer}/bin/rust-analyzer"; };
-                clippy = { path = "${pkgs.clippy}/bin/clippy-driver"; };
-                netcoredbg = { path = "${pkgs.netcoredbg}/bin/netcoredbg"; };
+              vim.g.nix = {
+                paths = {
+                  omnisharp_roslyn = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
+                  rust_analyzer = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+                  clippy = "${pkgs.clippy}/bin/clippy-driver";
+                  netcoredbg = "${pkgs.netcoredbg}/bin/netcoredbg";
+                };
               };
               require('source')
             '';
@@ -70,6 +72,9 @@ in {
               # https://aaronbos.dev/posts/debugging-csharp-neovim-nvim-dap
               nvim-dap
               nvim-dap-ui
+
+              nvim-tree-lua
+              nvim-web-devicons
 
               rose-pine
               dracula-nvim

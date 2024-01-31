@@ -15,7 +15,7 @@ lsp.setup()
 
 local lspconfig = require("lspconfig")
 lspconfig.rust_analyzer.setup({
-    cmd = { vim.g.nix.rust_analyzer.path };
+    cmd = { vim.g.nix.paths.rust_analyzer };
     settings = {
         ["rust-analyzer"] = {
             -- checkOnSave = {
@@ -25,5 +25,5 @@ lspconfig.rust_analyzer.setup({
     };
 });
 lspconfig.omnisharp.setup({
-    cmd = { vim.g.nix.omnisharp_roslyn.path };
+    cmd = { vim.g.nix.paths.omnisharp_roslyn };
 });

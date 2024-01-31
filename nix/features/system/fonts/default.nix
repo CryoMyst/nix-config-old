@@ -10,23 +10,25 @@ in {
 
   config = mkIf cfg.enable {
     fonts = {
+      fontconfig.enable = true;
       packages = with pkgs; [
         corefonts
-        ubuntu_font_family
-        powerline-fonts
+        dina-font
+        emojione
         font-awesome
-        source-code-pro
+        ipafont
+        jetbrains-mono
+        kanji-stroke-order-font
+        liberation_ttf
+        mplus-outline-fonts.githubRelease
+        nerdfonts
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
-        emojione
-        kanji-stroke-order-font
-        ipafont
-        liberation_ttf
-        mplus-outline-fonts.githubRelease
-        dina-font
+        powerline-fonts
         proggyfonts
-        jetbrains-mono
+        source-code-pro
+        ubuntu_font_family
       ];
     };
   };
