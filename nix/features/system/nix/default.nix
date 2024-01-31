@@ -25,12 +25,17 @@ in {
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
         sandbox = true;
+        auto-optimise-store = true;
       };
       gc = {
         automatic = true;
+        dates = "daily";
         options = "--delete-older-than 7d";
       };
-      optimise.automatic = true;
+      optimise = {
+        automatic = true;
+        dates = [ "03:45" ];
+      };
     };
 
     system.stateVersion = "unstable-01";
