@@ -3,6 +3,7 @@ require("remap")
 require("colorscheme")
 
 -- Plugins
+require("plugins.dap")
 require("plugins.fugitive")
 require("plugins.harpoon")
 require("plugins.lsp-zero")

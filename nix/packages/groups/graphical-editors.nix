@@ -3,7 +3,10 @@ let
   system = pkgs.system;
 
   # Common plugins for all JetBrains products
-  commonPlugins = ["github-copilot"];
+  commonPlugins = [
+    "github-copilot"
+    "nixidea"
+  ];
 
   # Function to add plugins to a JetBrains product
   addPluginsToJetBrainsProduct = product: specificPlugins: 

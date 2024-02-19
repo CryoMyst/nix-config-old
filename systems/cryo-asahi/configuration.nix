@@ -78,7 +78,7 @@ in {
                 };
                 "eDP-1" = {
                   mode = "3456x2160@60.000Hz";
-                  scale = "1.6";
+                  scale = "1.2";
                   pos = "3840,0";
                 };
               };
@@ -150,5 +150,7 @@ in {
     # List services that you want to enable:
   security.rtkit.enable = true;
   security.polkit.enable = true;
+
+  zramSwap.enable = true;
 }
 
