@@ -59,6 +59,7 @@ in {
               undotree
               vim-fugitive
               direnv-vim
+              copilot-vim
 
               # https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#you-might-not-need-lsp-zero
               lsp-zero-nvim
